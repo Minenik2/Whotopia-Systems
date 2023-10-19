@@ -64,6 +64,7 @@ export function Commodities() {
           <TableRowHead>
             <TableCellHead>Name</TableCellHead>
             <TableCellHead>Amount</TableCellHead>
+            <TableCellHead>Id</TableCellHead>
           </TableRowHead>
         </TableHead>
         <TableBody>
@@ -72,6 +73,7 @@ export function Commodities() {
               <TableRow key={row.id}>
                 <TableCell>{row.displayName.substring([14])}</TableCell>
                 <TableCell>{row.value}</TableCell>
+                <TableCell>{row.id}</TableCell>
               </TableRow>
             );
           })}
