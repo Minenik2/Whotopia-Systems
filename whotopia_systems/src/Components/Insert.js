@@ -88,9 +88,10 @@ export function Insert(props) {
   if (data) {
     let mergedData = mergeData(data);
     console.log(mergedData);
-    let dataHisotry = [];
+    let dataHistory = [];
+    // lager option array
     mergedData.map((row) => {
-      dataHisotry.push({
+      dataHistory.push({
         label: row.displayName.substring([14]),
         value: row.id,
       });
@@ -106,7 +107,7 @@ export function Insert(props) {
                 name="dataElement"
                 label="Select commodity"
                 initialValue="Boy3QwztgeZ"
-                options={dataHisotry}
+                options={dataHistory}
               />
               <ReactFinalForm.Field
                 name="value"
