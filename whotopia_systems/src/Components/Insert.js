@@ -125,7 +125,10 @@ export function Insert(props) {
             />
             <p>
               {new Date().toDateString() + " "}
-              {new Date().getHours()} :{new Date().getMinutes()}
+              {new Date().getHours()} :
+              {new Date().getMinutes() > 9
+                ? new Date().getMinutes()
+                : "0" + new Date().getMinutes()}
             </p>
             <Button type="submit" primary>
               Submit
