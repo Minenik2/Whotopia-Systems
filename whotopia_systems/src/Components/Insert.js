@@ -47,7 +47,7 @@ export function Insert(props) {
             <ReactFinalForm.Field
               component={SingleSelectFieldFF}
               name="dataElement"
-              label="Select field"
+              label="Select commodity"
               initialValue="Boy3QwztgeZ"
               options={[
                 {
@@ -106,10 +106,27 @@ export function Insert(props) {
             />
             <ReactFinalForm.Field
               name="value"
-              label="Value"
+              label="Select amount"
               component={InputFieldFF}
               validate={composeValidators(hasValue, number)}
             />
+            <br />
+            <ReactFinalForm.Field
+              name="dispenser"
+              label="Dispensed by"
+              component={InputFieldFF}
+              validate={composeValidators(hasValue)}
+            />
+            <ReactFinalForm.Field
+              name="dispensee"
+              label="Dispensed to"
+              component={InputFieldFF}
+              validate={composeValidators(hasValue)}
+            />
+            <p>
+              {new Date().toDateString() + " "}
+              {new Date().getHours()} :{new Date().getMinutes()}
+            </p>
             <Button type="submit" primary>
               Submit
             </Button>
