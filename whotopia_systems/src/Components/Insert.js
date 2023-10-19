@@ -1,4 +1,6 @@
 import React from "react";
+import { useDataQuery } from "@dhis2/app-runtime";
+import { CircularLoader } from "@dhis2/ui";
 import { useDataMutation } from "@dhis2/app-runtime";
 import {
   ReactFinalForm,
@@ -26,6 +28,41 @@ const dataMutationQuery = {
   }),
 };
 
+// kaller API
+const dataQuery = {
+  dataSets: {
+    resource: "dataSets/ULowA8V3ucd",
+    params: {
+      fields: ["name", "id", "dataSetElements[dataElement[id, displayName]"],
+    },
+  },
+  dataValueSets: {
+    resource: "dataValueSets",
+    params: {
+      orgUnit: "kbGqmM6ZWWV",
+      dataSet: "ULowA8V3ucd",
+      period: "202209",
+    },
+  },
+};
+
+function mergeData(data) {
+  return data.dataSets.dataSetElements.map((d) => {
+    let matchedValue = data.dataValueSets.dataValues.find((dataValues) => {
+      if (dataValues.dataElement == d.dataElement.id) {
+        return true;
+      }
+    });
+
+    return {
+      displayName: d.dataElement.displayName,
+      id: d.dataElement.id,
+      value: matchedValue.value,
+    };
+  });
+}
+// end of kaller API
+
 export function Insert(props) {
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
 
@@ -39,103 +76,72 @@ export function Insert(props) {
     alert("Commodities changed");
   }
 
-  return (
-    <div>
-      <ReactFinalForm.Form onSubmit={onSubmit}>
-        {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <ReactFinalForm.Field
-              component={SingleSelectFieldFF}
-              name="dataElement"
-              label="Select commodity"
-              initialValue="Boy3QwztgeZ"
-              options={[
-                {
-                  label: "Amoxicillin",
-                  value: "Boy3QwztgeZ",
-                },
-                {
-                  label: "Implants",
-                  value: "Dkapzovo8Ll",
-                },
-                {
-                  label: "Chlorhexidine",
-                  value: "WjDoIR27f31",
-                },
-                {
-                  label: "Resuscitation Equipment",
-                  value: "W1XtQhP6BGd",
-                },
-                {
-                  label: "Magnesium Sulfate",
-                  value: "o15CyZiTvxa",
-                },
-                {
-                  label: "Antenatal Corticosteroids",
-                  value: "d9vZ3HOlzAd",
-                },
-                {
-                  label: "Oral Rehydration Salts",
-                  value: "Lz8MM2Y9DNh",
-                },
-                {
-                  label: "Female Condoms",
-                  value: "dY4OCwl0Y7Y",
-                },
-                {
-                  label: "Injectable Antibiotics",
-                  value: "JIazHXNSnFJ",
-                },
-                {
-                  label: "Oxytocin",
-                  value: "hJNC4Bu2Mkv",
-                },
-                {
-                  label: "Misoprostol",
-                  value: "f27B1G7B3m3",
-                },
-                {
-                  label: "Zinc",
-                  value: "TCfIC3NDgQK",
-                },
-                {
-                  label: "Emergency Contraception",
-                  value: "BXgDHhPdFVU",
-                },
-              ]}
-            />
-            <ReactFinalForm.Field
-              name="value"
-              label="Select amount"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue, number)}
-            />
-            <br />
-            <ReactFinalForm.Field
-              name="dispenser"
-              label="Dispensed by"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue)}
-            />
-            <ReactFinalForm.Field
-              name="dispensee"
-              label="Dispensed to"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue)}
-            />
-            <p>
-              Time registered: {new Date().toDateString() + " "}
-              {new Date().getHours()}:
-              {new Date().getMinutes() > 9
-                ? new Date().getMinutes()
-                : "0" + new Date().getMinutes()}
-            </p>
-            <Button type="submit" primary>
-              Submit
-            </Button>
-          </form>
-        )}
-      </ReactFinalForm.Form>
-    </div>
-  );
+  const { loading2, error2, data } = useDataQuery(dataQuery);
+  if (error2) {
+    return <span>ERROR: {error.message}</span>;
+  }
+
+  if (loading2) {
+    return <CircularLoader large />;
+  }
+
+  if (data) {
+    let mergedData = mergeData(data);
+    console.log(mergedData);
+    let dataHisotry = [];
+    mergedData.map((row) => {
+      dataHisotry.push({
+        label: row.displayName.substring([14]),
+        value: row.id,
+      });
+    });
+
+    return (
+      <div>
+        <ReactFinalForm.Form onSubmit={onSubmit}>
+          {({ handleSubmit }) => (
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <ReactFinalForm.Field
+                component={SingleSelectFieldFF}
+                name="dataElement"
+                label="Select commodity"
+                initialValue="Boy3QwztgeZ"
+                options={dataHisotry}
+              />
+              <ReactFinalForm.Field
+                name="value"
+                label="Select amount"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue, number)}
+              />
+              <br />
+              <ReactFinalForm.Field
+                name="dispenser"
+                label="Dispensed by"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue)}
+              />
+              <ReactFinalForm.Field
+                name="dispensee"
+                label="Dispensed to"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue)}
+              />
+              <p>
+                Time registered: {new Date().toDateString() + " "}
+                {new Date().getHours()}:
+                {new Date().getMinutes() > 9
+                  ? new Date().getMinutes()
+                  : "0" + new Date().getMinutes()}
+              </p>
+              <Button type="submit" primary>
+                Submit
+              </Button>
+            </form>
+          )}
+        </ReactFinalForm.Form>
+      </div>
+    );
+  }
+  return <h1>waiting</h1>;
 }
