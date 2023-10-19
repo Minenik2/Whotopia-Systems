@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader } from "@dhis2/ui";
 import { Menu, MenuItem } from "@dhis2/ui";
-import classes from "./App.module.css";
+import classes from "../App.module.css";
 import { DatasetsTable } from "./DatasetsTable";
 
 const dataQuery = {

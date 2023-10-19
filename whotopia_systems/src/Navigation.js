@@ -5,9 +5,9 @@ export function Navigation(props) {
   return (
     <Menu>
       <MenuItem
-        label="Browse"
-        active={props.activePage == "Browse"}
-        onClick={() => props.activePageHandler("Browse")}
+        label="Life-Saving Commodities"
+        active={props.activePage == "Commodities"}
+        onClick={() => props.activePageHandler("Commodities")}
       />
       <MenuItem
         label="Insert"

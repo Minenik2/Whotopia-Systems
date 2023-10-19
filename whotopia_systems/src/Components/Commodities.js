@@ -14,7 +14,7 @@ import {
 
 const dataQuery = {
   dataSets: {
-    resource: "dataSets/aLpVgfXiz0f",
+    resource: "dataSets/ULowA8V3ucd",
     params: {
       fields: ["name", "id", "dataSetElements[dataElement[id, displayName]"],
     },
@@ -22,9 +22,9 @@ const dataQuery = {
   dataValueSets: {
     resource: "dataValueSets",
     params: {
-      orgUnit: "KiheEgvUZ0i",
-      dataSet: "aLpVgfXiz0f",
-      period: "2020",
+      orgUnit: "kbGqmM6ZWWV",
+      dataSet: "ULowA8V3ucd",
+      period: "202209",
     },
   },
 };
@@ -45,7 +45,7 @@ function mergeData(data) {
   });
 }
 
-export function Browse() {
+export function Commodities() {
   const { loading, error, data } = useDataQuery(dataQuery);
   if (error) {
     return <span>ERROR: {error.message}</span>;
@@ -62,18 +62,16 @@ export function Browse() {
       <Table>
         <TableHead>
           <TableRowHead>
-            <TableCellHead>Display Name</TableCellHead>
-            <TableCellHead>Value</TableCellHead>
-            <TableCellHead>ID</TableCellHead>
+            <TableCellHead>Name</TableCellHead>
+            <TableCellHead>Amount</TableCellHead>
           </TableRowHead>
         </TableHead>
         <TableBody>
           {mergedData.map((row) => {
             return (
               <TableRow key={row.id}>
-                <TableCell>{row.displayName}</TableCell>
+                <TableCell>{row.displayName.substring([14])}</TableCell>
                 <TableCell>{row.value}</TableCell>
-                <TableCell>{row.id}</TableCell>
               </TableRow>
             );
           })}
@@ -82,5 +80,5 @@ export function Browse() {
     );
   }
 
-  return <h1>Browse</h1>;
+  return <h1>Commodities</h1>;
 }
