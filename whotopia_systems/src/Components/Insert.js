@@ -2,6 +2,7 @@ import React from "react";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader } from "@dhis2/ui";
 import { useDataMutation } from "@dhis2/app-runtime";
+import { useState } from "react";
 import {
   ReactFinalForm,
   InputFieldFF,
@@ -62,6 +63,7 @@ function mergeData(data) {
   });
 }
 // end of kaller API
+const [amount, setAmount] = useState(0);
 
 export function Insert(props) {
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
@@ -88,9 +90,9 @@ export function Insert(props) {
   if (data) {
     let mergedData = mergeData(data);
     console.log(mergedData);
-    let dataHisotry = [];
+    let dataHistory = [];
     mergedData.map((row) => {
-      dataHisotry.push({
+      dataHistory.push({
         label: row.displayName.substring([14]),
         value: row.id,
       });
@@ -98,6 +100,7 @@ export function Insert(props) {
 
     return (
       <div>
+        <p>Select dispense/recieve</p>
         <ReactFinalForm.Form onSubmit={onSubmit}>
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit} autoComplete="off">
@@ -106,13 +109,30 @@ export function Insert(props) {
                 name="dataElement"
                 label="Select commodity"
                 initialValue="Boy3QwztgeZ"
-                options={dataHisotry}
+                options={dataHistory}
+                onChange={(event) => {
+                  setAmount(event.target.value);
+                }}
               />
               <ReactFinalForm.Field
                 name="value"
                 label="Select amount"
                 component={InputFieldFF}
                 validate={composeValidators(hasValue, number)}
+              />
+              <ReactFinalForm.Field
+                name="currentValue"
+                label="Current amount"
+                component={InputFieldFF}
+                placeholder="10"
+                disabled
+              />
+              <ReactFinalForm.Field
+                name="finalValue"
+                label="Final amount after change"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue, number)}
+                disabled
               />
               <br />
               <ReactFinalForm.Field
