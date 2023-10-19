@@ -13,7 +13,7 @@ import {
 const dataMutationQuery = {
   resource: "dataValueSets",
   type: "create",
-  dataSet: "aLpVgfXiz0f",
+  dataSet: "ULowA8V3ucd",
   data: ({ value, dataElement, period, orgUnit }) => ({
     dataValues: [
       {
@@ -33,8 +33,8 @@ export function Insert(props) {
     mutate({
       value: formInput.value,
       dataElement: formInput.dataElement,
-      period: "2020",
-      orgUnit: "KiheEgvUZ0i",
+      period: "202209",
+      orgUnit: "kbGqmM6ZWWV",
     });
   }
 
