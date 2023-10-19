@@ -36,6 +36,7 @@ export function Insert(props) {
       period: "202209",
       orgUnit: "kbGqmM6ZWWV",
     });
+    alert("Commodities changed");
   }
 
   return (
@@ -50,24 +51,56 @@ export function Insert(props) {
               initialValue="Boy3QwztgeZ"
               options={[
                 {
-                  label: "Axilicin",
+                  label: "Amoxicillin",
                   value: "Boy3QwztgeZ",
                 },
                 {
-                  label: "Population of women of child bearing age (WRA)",
-                  value: "vg6pdjObxsm",
+                  label: "Implants",
+                  value: "Dkapzovo8Ll",
                 },
                 {
-                  label: "Total population < 5 years  ",
-                  value: "DTtCy7Nx5jH",
+                  label: "Chlorhexidine",
+                  value: "WjDoIR27f31",
                 },
                 {
-                  label: "Expected pregnancies",
-                  value: "h0xKKjijTdI",
+                  label: "Resuscitation Equipment",
+                  value: "W1XtQhP6BGd",
                 },
                 {
-                  label: "Total population < 1 year   ",
-                  value: "DTVRnCGamkV",
+                  label: "Magnesium Sulfate",
+                  value: "o15CyZiTvxa",
+                },
+                {
+                  label: "Antenatal Corticosteroids",
+                  value: "d9vZ3HOlzAd",
+                },
+                {
+                  label: "Oral Rehydration Salts",
+                  value: "Lz8MM2Y9DNh",
+                },
+                {
+                  label: "Female Condoms",
+                  value: "dY4OCwl0Y7Y",
+                },
+                {
+                  label: "Injectable Antibiotics",
+                  value: "JIazHXNSnFJ",
+                },
+                {
+                  label: "Oxytocin",
+                  value: "hJNC4Bu2Mkv",
+                },
+                {
+                  label: "Misoprostol",
+                  value: "f27B1G7B3m3",
+                },
+                {
+                  label: "Zinc",
+                  value: "TCfIC3NDgQK",
+                },
+                {
+                  label: "Emergency Contraception",
+                  value: "BXgDHhPdFVU",
                 },
               ]}
             />
