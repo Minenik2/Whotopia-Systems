@@ -124,8 +124,8 @@ export function Insert(props) {
               validate={composeValidators(hasValue)}
             />
             <p>
-              {new Date().toDateString() + " "}
-              {new Date().getHours()} :
+              Time registered: {new Date().toDateString() + " "}
+              {new Date().getHours()}:
               {new Date().getMinutes() > 9
                 ? new Date().getMinutes()
                 : "0" + new Date().getMinutes()}
