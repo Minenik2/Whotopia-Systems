@@ -47,11 +47,11 @@ export function Insert(props) {
               component={SingleSelectFieldFF}
               name="dataElement"
               label="Select field"
-              initialValue="WUg3MYWQ7pt"
+              initialValue="Boy3QwztgeZ"
               options={[
                 {
-                  label: "Total Population",
-                  value: "WUg3MYWQ7pt",
+                  label: "Axilicin",
+                  value: "Boy3QwztgeZ",
                 },
                 {
                   label: "Population of women of child bearing age (WRA)",
