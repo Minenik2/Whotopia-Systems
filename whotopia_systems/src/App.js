@@ -11,6 +11,7 @@ import { CircularLoader } from "@dhis2/ui";
 function MyApp() {
   const [activePage, setActivePage] = useState("Commodities");
   const [apiData, setApiData] = useState([]);
+  const [updateArray, setUpdateArray] = useState(1);
 
   function activePageHandler(page) {
     setActivePage(page);
@@ -52,6 +53,7 @@ function MyApp() {
 
   useEffect(() => {
     const { loading, error, data } = useDataQuery(dataQuery);
+    console.log("running");
     if (error) {
       return <span>ERROR: {error.message}</span>;
     }
@@ -61,10 +63,12 @@ function MyApp() {
     }
 
     if (data) {
+      console.log("running");
       let mergedData = mergeData(data);
       setApiData(mergedData);
     }
-  }, []);
+  }, [updateArray]);
+  //setUpdateArray(0);
 
   return (
     <div className={classes.container}>

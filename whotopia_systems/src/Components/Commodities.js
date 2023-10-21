@@ -11,6 +11,8 @@ import {
 } from "@dhis2/ui";
 
 export function Commodities(mergedData) {
+  console.log(mergedData.mergedData);
+
   return (
     <Table>
       <TableHead>
@@ -21,7 +23,7 @@ export function Commodities(mergedData) {
         </TableRowHead>
       </TableHead>
       <TableBody>
-        {mergedData.map((row) => {
+        {mergedData.mergedData.map((row) => {
           return (
             <TableRow key={row.id}>
               <TableCell>{row.displayName.substring([14])}</TableCell>
