@@ -51,24 +51,21 @@ function MyApp() {
     });
   }
 
-  useEffect(() => {
-    const { loading, error, data } = useDataQuery(dataQuery);
+  const { loading, error, data } = useDataQuery(dataQuery);
+  console.log("running");
+  if (error) {
+    return <span>ERROR: {error.message}</span>;
+  }
+
+  if (loading) {
+    return <CircularLoader large />;
+  }
+
+  if (data) {
     console.log("running");
-    if (error) {
-      return <span>ERROR: {error.message}</span>;
-    }
-
-    if (loading) {
-      return <CircularLoader large />;
-    }
-
-    if (data) {
-      console.log("running");
-      let mergedData = mergeData(data);
-      setApiData(mergedData);
-    }
-  }, [updateArray]);
-  //setUpdateArray(0);
+    let mergedData = mergeData(data);
+    setApiData(mergedData);
+  }
 
   return (
     <div className={classes.container}>
@@ -80,7 +77,7 @@ function MyApp() {
       </div>
       <div className={classes.right}>
         {activePage === "Commodities" && <Commodities mergedData={apiData} />}
-
+        {activePage === "Insert" && <Insert />}
         {activePage === "Datasets" && <Datasets />}
       </div>
     </div>
