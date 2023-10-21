@@ -63,9 +63,9 @@ function mergeData(data) {
   });
 }
 // end of kaller API
-const [amount, setAmount] = useState(0);
 
 export function Insert(props) {
+  const [amount, setAmount] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
 
   function onSubmit(formInput) {
