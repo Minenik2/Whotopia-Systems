@@ -10,8 +10,8 @@ import { CircularLoader } from "@dhis2/ui";
 
 function MyApp() {
   const [activePage, setActivePage] = useState("Commodities");
-  const [apiData, setApiData] = useState([]);
-  const [updateArray, setUpdateArray] = useState(1);
+  //const [apiData, setApiData] = useState([]);
+  //const [updateArray, setUpdateArray] = useState(1);
 
   function activePageHandler(page) {
     setActivePage(page);
@@ -64,24 +64,24 @@ function MyApp() {
   if (data) {
     console.log("running");
     let mergedData = mergeData(data);
-    setApiData(mergedData);
+    return (
+      <div className={classes.container}>
+        <div className={classes.left}>
+          <Navigation
+            activePage={activePage}
+            activePageHandler={activePageHandler}
+          />
+        </div>
+        <div className={classes.right}>
+          {activePage === "Commodities" && (
+            <Commodities mergedData={mergedData} />
+          )}
+          {activePage === "Insert" && <Insert />}
+          {activePage === "Datasets" && <Datasets />}
+        </div>
+      </div>
+    );
   }
-
-  return (
-    <div className={classes.container}>
-      <div className={classes.left}>
-        <Navigation
-          activePage={activePage}
-          activePageHandler={activePageHandler}
-        />
-      </div>
-      <div className={classes.right}>
-        {activePage === "Commodities" && <Commodities mergedData={apiData} />}
-        {activePage === "Insert" && <Insert />}
-        {activePage === "Datasets" && <Datasets />}
-      </div>
-    </div>
-  );
 }
 
 export default MyApp;
