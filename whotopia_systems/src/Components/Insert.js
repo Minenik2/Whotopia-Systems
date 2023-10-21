@@ -1,7 +1,6 @@
 import React from "react";
-import { useDataQuery } from "@dhis2/app-runtime";
-import { CircularLoader } from "@dhis2/ui";
 import { useDataMutation } from "@dhis2/app-runtime";
+import { OnChange } from "react-final-form-listeners";
 import { useState } from "react";
 import {
   ReactFinalForm,
@@ -29,41 +28,6 @@ const dataMutationQuery = {
   }),
 };
 
-// kaller API
-const dataQuery = {
-  dataSets: {
-    resource: "dataSets/ULowA8V3ucd",
-    params: {
-      fields: ["name", "id", "dataSetElements[dataElement[id, displayName]"],
-    },
-  },
-  dataValueSets: {
-    resource: "dataValueSets",
-    params: {
-      orgUnit: "kbGqmM6ZWWV",
-      dataSet: "ULowA8V3ucd",
-      period: "202209",
-    },
-  },
-};
-
-function mergeData(data) {
-  return data.dataSets.dataSetElements.map((d) => {
-    let matchedValue = data.dataValueSets.dataValues.find((dataValues) => {
-      if (dataValues.dataElement == d.dataElement.id) {
-        return true;
-      }
-    });
-
-    return {
-      displayName: d.dataElement.displayName,
-      id: d.dataElement.id,
-      value: matchedValue.value,
-    };
-  });
-}
-// end of kaller API
-
 export function Insert(props) {
   const [amount, setAmount] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
@@ -78,90 +42,85 @@ export function Insert(props) {
     alert("Commodities changed");
   }
 
-  const { loading2, error2, data } = useDataQuery(dataQuery);
-  if (error2) {
-    return <span>ERROR: {error.message}</span>;
-  }
-
-  if (loading2) {
-    return <CircularLoader large />;
-  }
-
-  if (data) {
-    let mergedData = mergeData(data);
-    console.log(mergedData);
-    let dataHistory = [];
-    mergedData.map((row) => {
-      dataHistory.push({
-        label: row.displayName.substring([14]),
-        value: row.id,
-      });
+  let mergedData = props.mergedData;
+  console.log(mergedData);
+  let dataHistory = [];
+  mergedData.map((row) => {
+    dataHistory.push({
+      label: row.displayName.substring([14]),
+      value: row.id,
+      amount: row.value,
     });
+  });
 
-    return (
-      <div>
-        <p>Select dispense/recieve</p>
-        <ReactFinalForm.Form onSubmit={onSubmit}>
-          {({ handleSubmit }) => (
-            <form onSubmit={handleSubmit} autoComplete="off">
-              <ReactFinalForm.Field
-                component={SingleSelectFieldFF}
-                name="dataElement"
-                label="Select commodity"
-                initialValue="Boy3QwztgeZ"
-                options={dataHistory}
-                onChange={(event) => {
-                  setAmount(event.target.value);
-                }}
-              />
-              <ReactFinalForm.Field
-                name="value"
-                label="Select amount"
-                component={InputFieldFF}
-                validate={composeValidators(hasValue, number)}
-              />
-              <ReactFinalForm.Field
-                name="currentValue"
-                label="Current amount"
-                component={InputFieldFF}
-                placeholder="10"
-                disabled
-              />
-              <ReactFinalForm.Field
-                name="finalValue"
-                label="Final amount after change"
-                component={InputFieldFF}
-                validate={composeValidators(hasValue, number)}
-                disabled
-              />
-              <br />
-              <ReactFinalForm.Field
-                name="dispenser"
-                label="Dispensed by"
-                component={InputFieldFF}
-                validate={composeValidators(hasValue)}
-              />
-              <ReactFinalForm.Field
-                name="dispensee"
-                label="Dispensed to"
-                component={InputFieldFF}
-                validate={composeValidators(hasValue)}
-              />
-              <p>
-                Time registered: {new Date().toDateString() + " "}
-                {new Date().getHours()}:
-                {new Date().getMinutes() > 9
-                  ? new Date().getMinutes()
-                  : "0" + new Date().getMinutes()}
-              </p>
-              <Button type="submit" primary>
-                Submit
-              </Button>
-            </form>
-          )}
-        </ReactFinalForm.Form>
-      </div>
-    );
-  }
-  return <h1>waiting</h1>;
+  return (
+    <div>
+      <p>Select dispense/recieve</p>
+      <ReactFinalForm.Form onSubmit={onSubmit}>
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit} autoComplete="off">
+            <ReactFinalForm.Field
+              component={SingleSelectFieldFF}
+              name="dataElement"
+              label="Select commodity"
+              initialValue="Boy3QwztgeZ"
+              options={dataHistory}
+              onClick={(event) => {
+                setAmount(event.target.value);
+                console.log(event.target.value);
+              }}
+            />
+            <OnChange name="dataElement">
+              {(event) => {
+                setAmount(event.target.value);
+                console.log(event.target.value);
+              }}
+            </OnChange>
+            <ReactFinalForm.Field
+              name="value"
+              label="Select amount"
+              component={InputFieldFF}
+              validate={composeValidators(hasValue, number)}
+            />
+            <ReactFinalForm.Field
+              name="currentValue"
+              label="Current amount"
+              component={InputFieldFF}
+              placeholder={dataHistory[0].amount + "hallo :("}
+              disabled
+            />
+            <ReactFinalForm.Field
+              name="finalValue"
+              label="Final amount after change"
+              component={InputFieldFF}
+              disabled
+            />
+            <br />
+            <ReactFinalForm.Field
+              name="dispenser"
+              label="Dispensed by"
+              component={InputFieldFF}
+              validate={composeValidators(hasValue)}
+            />
+            <ReactFinalForm.Field
+              name="dispensee"
+              label="Dispensed to"
+              component={InputFieldFF}
+              validate={composeValidators(hasValue)}
+            />
+            <p>
+              Time registered: {new Date().toDateString() + " "}
+              {new Date().getHours()}:
+              {new Date().getMinutes() > 9
+                ? new Date().getMinutes()
+                : "0" + new Date().getMinutes()}
+            </p>
+            <Button type="submit" primary>
+              Submit
+            </Button>
+          </form>
+        )}
+      </ReactFinalForm.Form>
+    </div>
+  );
 }

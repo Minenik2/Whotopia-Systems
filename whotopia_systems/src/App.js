@@ -76,7 +76,7 @@ function MyApp() {
           {activePage === "Commodities" && (
             <Commodities mergedData={mergedData} />
           )}
-          {activePage === "Insert" && <Insert />}
+          {activePage === "Insert" && <Insert mergedData={mergedData} />}
           {activePage === "Datasets" && <Datasets />}
         </div>
       </div>
