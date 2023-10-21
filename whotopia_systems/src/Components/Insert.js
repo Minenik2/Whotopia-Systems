@@ -1,6 +1,5 @@
 import React from "react";
 import { useDataMutation } from "@dhis2/app-runtime";
-import { OnChange } from "react-final-form-listeners";
 import { useState } from "react";
 import {
   ReactFinalForm,
@@ -65,17 +64,11 @@ export function Insert(props) {
               label="Select commodity"
               initialValue="Boy3QwztgeZ"
               options={dataHistory}
-              onClick={(event) => {
-                setAmount(event.target.value);
+              onChange={(event) => {
                 console.log(event.target.value);
+                setAmount(event.target.value);
               }}
             />
-            <OnChange name="dataElement">
-              {(event) => {
-                setAmount(event.target.value);
-                console.log(event.target.value);
-              }}
-            </OnChange>
             <ReactFinalForm.Field
               name="value"
               label="Select amount"

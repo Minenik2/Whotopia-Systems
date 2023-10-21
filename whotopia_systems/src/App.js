@@ -10,8 +10,6 @@ import { CircularLoader } from "@dhis2/ui";
 
 function MyApp() {
   const [activePage, setActivePage] = useState("Commodities");
-  //const [apiData, setApiData] = useState([]);
-  //const [updateArray, setUpdateArray] = useState(1);
 
   function activePageHandler(page) {
     setActivePage(page);
