@@ -41,6 +41,7 @@ export function Insert(props) {
     alert("Commodities changed");
   }
 
+  // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
   console.log(mergedData);
   let dataHistory = [];
