@@ -65,31 +65,14 @@ export function Insert(props) {
               label="Select commodity"
               initialValue="Boy3QwztgeZ"
               options={dataHistory}
-              onChange={(event) => {
-                console.log(event.target.value);
-                setAmount(event.target.value);
-              }}
             />
             <ReactFinalForm.Field
               name="value"
               label="Select amount"
               component={InputFieldFF}
               validate={composeValidators(hasValue, number)}
+              
             />
-            <ReactFinalForm.Field
-              name="currentValue"
-              label="Current amount"
-              component={InputFieldFF}
-              placeholder={dataHistory[0].amount + "hallo :("}
-              disabled
-            />
-            <ReactFinalForm.Field
-              name="finalValue"
-              label="Final amount after change"
-              component={InputFieldFF}
-              disabled
-            />
-            <br />
             <ReactFinalForm.Field
               name="dispenser"
               label="Dispensed by"
@@ -115,6 +98,10 @@ export function Insert(props) {
           </form>
         )}
       </ReactFinalForm.Form>
+      <p>Final amount after change</p>
+      <p>{(dataHistory[0].amount + 50)}</p>
+      <p>Current amount</p>
+      <p>{dataHistory[0].amount}</p>
     </div>
   );
 }
