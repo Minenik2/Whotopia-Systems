@@ -15,16 +15,20 @@ export function DatasetsTable(props) {
     <Table>
       <TableHead>
         <TableRowHead>
-          <TableCellHead>Display Name</TableCellHead>
           <TableCellHead>ID</TableCellHead>
+          <TableCellHead>Amount</TableCellHead>
           <TableCellHead>Created</TableCellHead>
+          <TableCellHead>Dispensed By</TableCellHead>
+          <TableCellHead>Dispensed To</TableCellHead>
         </TableRowHead>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>{props.selectedItem.dispensedTo}</TableCell>
-          <TableCell>{props.selectedItem.comoodityId}</TableCell>
+          <TableCell>{props.selectedItem.commodityId}</TableCell>
+          <TableCell>{props.selectedItem.value}</TableCell>
           <TableCell>{props.selectedItem.period}</TableCell>
+          <TableCell>{props.selectedItem.dispensedBy}</TableCell>
+          <TableCell>{props.selectedItem.DispensedTo}</TableCell>
         </TableRow>
       </TableBody>
     </Table>

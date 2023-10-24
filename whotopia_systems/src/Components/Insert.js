@@ -63,7 +63,7 @@ export function Insert(props) {
     mutateTransaction({
       value: formInput.value,
       commodityId: formInput.dataElement,
-      period: "20201024",
+      period: new Date().toDateString(),
       dispensedBy: formInput.dispenser,
       DispensedTo: formInput.dispensee,
     });
