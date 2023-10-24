@@ -154,6 +154,7 @@ export function Insert(props) {
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
                     onChange={handleAmount()}
+                    inputWidth="20px"
                   />
                 </div>
               </div>
@@ -176,6 +177,7 @@ export function Insert(props) {
               label="Dispensed to"
               component={InputFieldFF}
               validate={composeValidators(hasValue)}
+              inputWidth="30%"
             />
             <p>
               Time registered: {new Date().toDateString() + " "}
