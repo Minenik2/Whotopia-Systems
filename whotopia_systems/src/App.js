@@ -79,7 +79,9 @@ function MyApp() {
             <Commodities mergedData={mergedData} />
           )}
           {activePage === "Insert" && <Insert mergedData={mergedData} />}
-          {activePage === "Datasets" && <Datasets />}
+          {activePage === "Datasets" && (
+            <Datasets mergedData={data.dataStore} />
+          )}
         </div>
       </div>
     );

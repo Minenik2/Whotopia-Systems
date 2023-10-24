@@ -27,10 +27,29 @@ const dataMutationQuery = {
   }),
 };
 
+const dataMutationQueryTransaction = {
+  resource: "dataStore/IN5320-<3>/myfirstkey2",
+  type: "create",
+  data: ({ value, commodityId, period, dispensedBy, DispensedTo }) => ({
+    dataValues: [
+      {
+        commodityId: commodityId,
+        period: period,
+        dispensedBy: dispensedBy,
+        DispensedTo: DispensedTo,
+        value: value,
+      },
+    ],
+  }),
+};
+
 export function Insert(props) {
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
+  const [mutateTransaction, { loading2, error2 }] = useDataMutation(
+    dataMutationQueryTransaction
+  );
 
   function onSubmit(formInput) {
     mutate({
@@ -38,6 +57,13 @@ export function Insert(props) {
       dataElement: formInput.dataElement,
       period: "202209",
       orgUnit: "kbGqmM6ZWWV",
+    });
+    mutateTransaction({
+      value: formInput.value,
+      commodityId: formInput.dataElement,
+      period: "20201024",
+      dispensedBy: formInput.dispenser,
+      DispensedTo: formInput.dispensee,
     });
     alert("Commodities changed");
   }
@@ -55,18 +81,20 @@ export function Insert(props) {
   });
 
   const handleSelect = (selected) => {
-    console.log(selected);
-    console.log(event);
+    //console.log(selected);
+    //console.log(event);
 
     for (let option in dataHistory) {
       if (dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
-        console.log("hallo");
+        //console.log("hallo");
       }
     }
   };
 
-  const handleAmount = () => {
+  const handleAmount = (test) => {
+    console.log("this is test: ");
+    console.log(test);
     if (event.target.value) {
       setTotal(parseInt(event.target.value) + parseInt(amount));
     } else {
@@ -105,19 +133,19 @@ export function Insert(props) {
                     component={SingleSelectFieldFF}
                     name="dataElement"
                     label="Select commodity"
-                    placeholder="Choose an option"
+                    placeholder="Choose an optionsdsdsdsds"
                     someAmount="o15CyZiTvxa"
                     options={dataHistory}
-                    onKeyDown={handleSelect()}
+                    onChange={handleSelect()}
                   />
                 </div>
                 <div style={{ "flex-grow": "1" }}>
                   <ReactFinalForm.Field
                     name="value"
-                    label="Select amount"
+                    label="Select amountsss"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
-                    onChange={handleAmount()}
+                    onChange={handleAmount}
                   />
                 </div>
               </div>

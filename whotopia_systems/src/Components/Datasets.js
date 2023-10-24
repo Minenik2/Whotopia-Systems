@@ -9,7 +9,7 @@ export function Datasets(props) {
       <div className={classes.container}>
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>
-            {props.mergedData.request0.dataSets.map((listItem) => {
+            {props.mergedData.map((listItem) => {
               return (
                 <MenuItem
                   key={listItem.id}
