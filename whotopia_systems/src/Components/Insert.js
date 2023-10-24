@@ -83,10 +83,11 @@ export function Insert(props) {
   });
 
   const handleSelect = (selected) => {
-    //console.log(selected);
+    console.log(selected);
     //console.log(event);
 
     for (let option in dataHistory) {
+      console.log(dataHistory[option].label);
       if (dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
       }
@@ -94,11 +95,12 @@ export function Insert(props) {
   };
 
   window.addEventListener("keyup", (event) => handleAmount(event));
+  window.addEventListener("change", (event) => handleSelect(event));
 
   const handleAmount = (event) => {
     console.log(event);
     if (event.target.id == "value") {
-      setTotal(parseInt(event.target.value) + parseInt(amount));
+      setTotal(parseInt(event.target.value));
     }
   };
   const switchForm = () => {
@@ -157,7 +159,9 @@ export function Insert(props) {
                     inputWidth="100px"
                   />
                 </div>
-                <p>Amount after transaction: {total}</p>
+                <p>
+                  Amount after transaction: {parseInt(total) + parseInt(amount)}
+                </p>
               </div>
             </div>
             <br />
