@@ -72,7 +72,6 @@ export function Insert(props) {
 
   // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
-  console.log(mergedData);
   let dataHistory = [];
   mergedData.map((row) => {
     dataHistory.push({
@@ -82,12 +81,8 @@ export function Insert(props) {
     });
   });
 
-  const handleSelect = (selected) => {
-    console.log(selected);
-    //console.log(event);
-
+  const handleSelect = () => {
     for (let option in dataHistory) {
-      console.log(dataHistory[option].label);
       if (dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
       }
@@ -95,10 +90,8 @@ export function Insert(props) {
   };
 
   window.addEventListener("keyup", (event) => handleAmount(event));
-  window.addEventListener("change", (event) => handleSelect(event));
 
   const handleAmount = (event) => {
-    console.log(event);
     if (event.target.id == "value") {
       setTotal(parseInt(event.target.value));
     }
