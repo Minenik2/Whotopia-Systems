@@ -30,8 +30,8 @@ const dataMutationQuery = {
 };
 
 const dataMutationQueryTransaction = {
-  resource: "dataStore/IN5320-<3>/myfirstkey2",
-  type: "create",
+  resource: "dataStore/IN5320-<3>/Transactions",
+  type: "update",
   data: ({ value, commodityId, period, dispensedBy, DispensedTo }) => ({
     dataValues: [
       {
@@ -94,8 +94,8 @@ export function Insert(props) {
     }
   };
 
-  const handleAmount = () => {
-    console.log(":(");
+  const handleAmount = (event) => {
+    console.log(event);
     if (event.target.value) {
       setTotal(parseInt(event.target.value) + parseInt(amount));
     } else {
@@ -141,7 +141,7 @@ export function Insert(props) {
                     component={SingleSelectFieldFF}
                     name="dataElement"
                     label="Select commodity"
-                    placeholder="Choose an option"
+                    placeholder="Choose an optionssss"
                     someAmount="o15CyZiTvxa"
                     options={dataHistory}
                     onChange={handleSelect()}
@@ -155,7 +155,7 @@ export function Insert(props) {
                     label="Select amount"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
-                    onChange={handleAmount()}
+                    onChange={(event) => handleAmount(event)}
                     inputWidth="100px"
                   />
                 </div>

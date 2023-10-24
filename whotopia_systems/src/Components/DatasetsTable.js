@@ -22,9 +22,9 @@ export function DatasetsTable(props) {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>{props.selectedItem.displayName}</TableCell>
-          <TableCell>{props.selectedItem.id}</TableCell>
-          <TableCell>{props.selectedItem.created}</TableCell>
+          <TableCell>{props.selectedItem.dispensedTo}</TableCell>
+          <TableCell>{props.selectedItem.comoodityId}</TableCell>
+          <TableCell>{props.selectedItem.period}</TableCell>
         </TableRow>
       </TableBody>
     </Table>

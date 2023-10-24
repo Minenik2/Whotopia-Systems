@@ -4,16 +4,18 @@ import classes from "../App.module.css";
 import { DatasetsTable } from "./DatasetsTable";
 
 export function Datasets(props) {
+  console.log(props.mergedData);
   const [selectedItem, setSelectedItem] = useState(null);
-    return (
+  return (
+    <>
       <div className={classes.container}>
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>
-            {props.mergedData.map((listItem) => {
+            {props.mergedData.dataValues.map((listItem) => {
               return (
                 <MenuItem
-                  key={listItem.id}
-                  label={listItem.displayName}
+                  key={listItem.commodityId}
+                  label={listItem.period}
                   onClick={() => {
                     setSelectedItem(listItem);
                   }}
@@ -26,5 +28,6 @@ export function Datasets(props) {
           {selectedItem && <DatasetsTable selectedItem={selectedItem} />}
         </div>
       </div>
-    );
-  }
+    </>
+  );
+}
