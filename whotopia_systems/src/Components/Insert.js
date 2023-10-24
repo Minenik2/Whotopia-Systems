@@ -110,7 +110,7 @@ export function Insert(props) {
     display: "flex",
     "flex-wrap": "no-wrap",
     gap: "20px",
-    width: "40%",
+    "align-items": "flex-end",
   };
 
   return (
@@ -136,7 +136,7 @@ export function Insert(props) {
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="stuff">
               <div style={divStyle}>
-                <div style={{ "flex-grow": "5" }}>
+                <div>
                   <ReactFinalForm.Field
                     component={SingleSelectFieldFF}
                     name="dataElement"
@@ -145,22 +145,21 @@ export function Insert(props) {
                     someAmount="o15CyZiTvxa"
                     options={dataHistory}
                     onChange={handleSelect()}
+                    inputWidth="260px"
                   />
                 </div>
-                <div style={{ "flex-grow": "1" }}>
+                <p>In stock: {amount}</p>
+                <div>
                   <ReactFinalForm.Field
                     name="value"
                     label="Select amount"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
                     onChange={handleAmount()}
-                    inputWidth="20px"
+                    inputWidth="100px"
                   />
                 </div>
-              </div>
-              <div style={divStyle}>
-                <p>Current amount: {amount}</p>
-                <p>Final amount after change: {total}</p>
+                <p>Amount after transaction: {total}</p>
               </div>
             </div>
             <br />
@@ -170,14 +169,14 @@ export function Insert(props) {
               label="Dispensed by"
               component={InputFieldFF}
               validate={composeValidators(hasValue)}
-              inputWidth="30%"
+              inputWidth="50%"
             />
             <ReactFinalForm.Field
               name="dispensee"
               label="Dispensed to"
               component={InputFieldFF}
               validate={composeValidators(hasValue)}
-              inputWidth="30%"
+              inputWidth="50%"
             />
             <p>
               Time registered: {new Date().toDateString() + " "}
