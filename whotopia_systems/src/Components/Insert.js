@@ -9,6 +9,8 @@ import {
   hasValue,
   number,
   composeValidators,
+  IconPushLeft16,
+  IconPushRight16,
 } from "@dhis2/ui";
 
 const dataMutationQuery = {
@@ -92,21 +94,23 @@ export function Insert(props) {
     }
   };
 
-  const handleAmount = (test) => {
-    console.log("this is test: ");
-    console.log(test);
+  const handleAmount = () => {
+    console.log(":(");
     if (event.target.value) {
       setTotal(parseInt(event.target.value) + parseInt(amount));
     } else {
       setTotal(amount);
     }
   };
+  const switchForm = () => {
+    console.log("hi :>");
+  };
 
   const divStyle = {
     display: "flex",
     "flex-wrap": "no-wrap",
     gap: "20px",
-    width: "50%",
+    width: "40%",
   };
 
   return (
@@ -116,12 +120,16 @@ export function Insert(props) {
           display: "flex",
           "justify-content": "space-evenly",
           padding: "20px",
-          "padding-bottom": "40px",
         }}
       >
-        <Button large>Register dispensed commodity</Button>
-        <Button large>Register recieved commodity</Button>
+        <Button name="dispense" large onClick={switchForm}>
+          Register dispensed commodity <IconPushRight16 />
+        </Button>
+        <Button name="recieve" large onClick={switchForm}>
+          Register recieved commodity <IconPushLeft16 />
+        </Button>
       </div>
+      <h1>Register dispensed commodity</h1>
 
       <ReactFinalForm.Form onSubmit={onSubmit}>
         {({ handleSubmit }) => (
