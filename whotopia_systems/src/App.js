@@ -31,6 +31,9 @@ function MyApp() {
         period: "202209",
       },
     },
+    dataStore: {
+      resource: "dataStore/IN5320-<3>/Transactions",
+    },
   };
 
   function mergeData(data) {
@@ -61,6 +64,7 @@ function MyApp() {
 
   if (data) {
     console.log("running");
+    console.log(data);
     let mergedData = mergeData(data);
     return (
       <div className={classes.container}>
