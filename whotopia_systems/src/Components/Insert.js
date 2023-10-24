@@ -83,32 +83,50 @@ export function Insert(props) {
 
   return (
     <div>
-      <p>Select dispense/recieve</p>
+      <div
+        style={{
+          display: "flex",
+          "justify-content": "space-evenly",
+          padding: "20px",
+          "padding-bottom": "40px",
+        }}
+      >
+        <Button large>Register dispensed commodity</Button>
+        <Button large>Register recieved commodity</Button>
+      </div>
+
       <ReactFinalForm.Form onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="stuff" style={divStyle}>
-              <div style={{ "flex-grow": "5" }}>
-                <ReactFinalForm.Field
-                  component={SingleSelectFieldFF}
-                  name="dataElement"
-                  label="Select commodity"
-                  placeholder="Choose an option"
-                  someAmount="o15CyZiTvxa"
-                  options={dataHistory}
-                  onKeyDown={handleSelect()}
-                />
+            <div className="stuff">
+              <div style={divStyle}>
+                <div style={{ "flex-grow": "5" }}>
+                  <ReactFinalForm.Field
+                    component={SingleSelectFieldFF}
+                    name="dataElement"
+                    label="Select commodity"
+                    placeholder="Choose an option"
+                    someAmount="o15CyZiTvxa"
+                    options={dataHistory}
+                    onKeyDown={handleSelect()}
+                  />
+                </div>
+                <div style={{ "flex-grow": "1" }}>
+                  <ReactFinalForm.Field
+                    name="value"
+                    label="Select amount"
+                    component={InputFieldFF}
+                    validate={composeValidators(hasValue, number)}
+                    onChange={handleAmount()}
+                  />
+                </div>
               </div>
-              <div style={{ "flex-grow": "1" }}>
-                <ReactFinalForm.Field
-                  name="value"
-                  label="Select amount"
-                  component={InputFieldFF}
-                  validate={composeValidators(hasValue, number)}
-                  onChange={handleAmount()}
-                />
+              <div style={divStyle}>
+                <p>Current amount: {amount}</p>
+                <p>Final amount after change: {total}</p>
               </div>
             </div>
+            <br />
 
             <ReactFinalForm.Field
               name="dispenser"
@@ -136,10 +154,6 @@ export function Insert(props) {
           </form>
         )}
       </ReactFinalForm.Form>
-      <p>Final amount after change</p>
-      <p>{total}</p>
-      <p>Current amount</p>
-      <p>{amount}</p>
     </div>
   );
 }
