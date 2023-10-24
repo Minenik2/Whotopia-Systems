@@ -150,7 +150,7 @@ export function Insert(props) {
                 <div style={{ "flex-grow": "1" }}>
                   <ReactFinalForm.Field
                     name="value"
-                    label="Select amountsss"
+                    label="Select amount"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
                     onChange={handleAmount()}
