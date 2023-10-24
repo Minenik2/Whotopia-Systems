@@ -53,7 +53,6 @@ function MyApp() {
   }
 
   const { loading, error, data } = useDataQuery(dataQuery);
-  console.log("running");
   if (error) {
     return <span>ERROR: {error.message}</span>;
   }
@@ -63,8 +62,6 @@ function MyApp() {
   }
 
   if (data) {
-    console.log("running");
-    console.log(data);
     let mergedData = mergeData(data);
     return (
       <div className={classes.container}>

@@ -89,17 +89,16 @@ export function Insert(props) {
     for (let option in dataHistory) {
       if (dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
-        //console.log("hallo");
       }
     }
   };
 
+  window.addEventListener("keyup", (event) => handleAmount(event));
+
   const handleAmount = (event) => {
     console.log(event);
-    if (event.target.value) {
+    if (event.target.id == "value") {
       setTotal(parseInt(event.target.value) + parseInt(amount));
-    } else {
-      setTotal(amount);
     }
   };
   const switchForm = () => {
@@ -141,7 +140,7 @@ export function Insert(props) {
                     component={SingleSelectFieldFF}
                     name="dataElement"
                     label="Select commodity"
-                    placeholder="Choose an optionssss"
+                    placeholder="Choose an option"
                     someAmount="o15CyZiTvxa"
                     options={dataHistory}
                     onChange={handleSelect()}
@@ -155,7 +154,6 @@ export function Insert(props) {
                     label="Select amount"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
-                    onChange={(event) => handleAmount(event)}
                     inputWidth="100px"
                   />
                 </div>

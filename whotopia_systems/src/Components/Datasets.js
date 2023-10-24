@@ -12,10 +12,11 @@ export function Datasets(props) {
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>
             {props.mergedData.dataValues.map((listItem) => {
+              let label = "Transaction: " + listItem.period;
               return (
                 <MenuItem
                   key={listItem.commodityId}
-                  label={listItem.period}
+                  label={label}
                   onClick={() => {
                     setSelectedItem(listItem);
                   }}
