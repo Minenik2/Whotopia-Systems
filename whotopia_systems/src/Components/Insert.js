@@ -141,7 +141,7 @@ export function Insert(props) {
                     component={SingleSelectFieldFF}
                     name="dataElement"
                     label="Select commodity"
-                    placeholder="Choose an optionsdsdsdsds"
+                    placeholder="Choose an option"
                     someAmount="o15CyZiTvxa"
                     options={dataHistory}
                     onChange={handleSelect()}
@@ -153,7 +153,7 @@ export function Insert(props) {
                     label="Select amountsss"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
-                    onChange={handleAmount}
+                    onChange={handleAmount()}
                   />
                 </div>
               </div>
