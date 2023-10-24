@@ -29,8 +29,9 @@ const dataMutationQuery = {
 
 export function Insert(props) {
   const [amount, setAmount] = useState(0);
+  const [total, setTotal] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
-  
+
   function onSubmit(formInput) {
     mutate({
       value: formInput.value,
@@ -53,36 +54,68 @@ export function Insert(props) {
     });
   });
 
+  const handleSelect = (selected) => {
+    console.log(selected);
+    console.log(event);
+
+    for (let option in dataHistory) {
+      if (dataHistory[option].label == event.target.innerHTML) {
+        setAmount(dataHistory[option].amount);
+        console.log("hallo");
+      }
+    }
+  };
+
+  const handleAmount = () => {
+    if (event.target.value) {
+      setTotal(parseInt(event.target.value) + parseInt(amount));
+    } else {
+      setTotal(amount);
+    }
+  };
+
+  const divStyle = {
+    display: "flex",
+    "flex-wrap": "no-wrap",
+    gap: "20px",
+    width: "50%",
+  };
+
   return (
     <div>
       <p>Select dispense/recieve</p>
       <ReactFinalForm.Form onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <ReactFinalForm.Field
-              component={SingleSelectFieldFF}
-              name="dataElement"
-              label="Select commodity"
-              initialValue="Boy3QwztgeZ"
-              someAmount='o15CyZiTvxa'
-              options={dataHistory}
-              onChange={(event, someAmount, initialValue, dataElement) => {
-                console.log('HIHIHIHI')
-                setAmount(10)
-              }}
-            />
-            <ReactFinalForm.Field
-              name="value"
-              label="Select amount"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue, number)}
-              
-            />
+            <div className="stuff" style={divStyle}>
+              <div style={{ "flex-grow": "5" }}>
+                <ReactFinalForm.Field
+                  component={SingleSelectFieldFF}
+                  name="dataElement"
+                  label="Select commodity"
+                  placeholder="Choose an option"
+                  someAmount="o15CyZiTvxa"
+                  options={dataHistory}
+                  onKeyDown={handleSelect()}
+                />
+              </div>
+              <div style={{ "flex-grow": "1" }}>
+                <ReactFinalForm.Field
+                  name="value"
+                  label="Select amount"
+                  component={InputFieldFF}
+                  validate={composeValidators(hasValue, number)}
+                  onChange={handleAmount()}
+                />
+              </div>
+            </div>
+
             <ReactFinalForm.Field
               name="dispenser"
               label="Dispensed by"
               component={InputFieldFF}
               validate={composeValidators(hasValue)}
+              inputWidth="30%"
             />
             <ReactFinalForm.Field
               name="dispensee"
@@ -104,10 +137,9 @@ export function Insert(props) {
         )}
       </ReactFinalForm.Form>
       <p>Final amount after change</p>
-      <p>{(dataHistory[0].amount + 50)}</p>
+      <p>{total}</p>
       <p>Current amount</p>
-      <p>{dataHistory[0].amount}</p>
-      <p>Amount={amount}</p>
+      <p>{amount}</p>
     </div>
   );
 }

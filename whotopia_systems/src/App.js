@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./App.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Datasets } from "./Components/Datasets";
 import { Commodities } from "./Components/Commodities";
 import { Insert } from "./Components/Insert";
