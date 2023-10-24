@@ -30,7 +30,7 @@ const dataMutationQuery = {
 export function Insert(props) {
   const [amount, setAmount] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
-
+  
   function onSubmit(formInput) {
     mutate({
       value: formInput.value,
@@ -64,7 +64,12 @@ export function Insert(props) {
               name="dataElement"
               label="Select commodity"
               initialValue="Boy3QwztgeZ"
+              someAmount='o15CyZiTvxa'
               options={dataHistory}
+              onChange={(event, someAmount, initialValue, dataElement) => {
+                console.log('HIHIHIHI')
+                setAmount(10)
+              }}
             />
             <ReactFinalForm.Field
               name="value"
@@ -102,6 +107,7 @@ export function Insert(props) {
       <p>{(dataHistory[0].amount + 50)}</p>
       <p>Current amount</p>
       <p>{dataHistory[0].amount}</p>
+      <p>Amount={amount}</p>
     </div>
   );
 }
