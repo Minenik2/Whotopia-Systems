@@ -8,6 +8,11 @@ export function Datasets(props) {
   const [selectedItem, setSelectedItem] = useState(null);
   return (
     <>
+      <h1>Transaction History</h1>
+      <p>
+        Here is an overview of all dispensed and received commodities. Click on
+        a transaction to view more transaction details.
+      </p>
       <div className={classes.container}>
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>

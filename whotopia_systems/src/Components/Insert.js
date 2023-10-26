@@ -119,11 +119,15 @@ export function Insert(props) {
         <Button name="dispense" large onClick={switchForm}>
           Register dispensed commodity <IconPushRight16 />
         </Button>
-        <Button name="recieve" large onClick={switchForm}>
-          Register recieved commodity <IconPushLeft16 />
+        <Button name="receive" large onClick={switchForm}>
+          Register received commodity <IconPushLeft16 />
         </Button>
       </div>
       <h1>Register dispensed commodity</h1>
+      <p>
+        Dispense one or multiple commodities and submit to register the
+        transaction.
+      </p>
 
       <ReactFinalForm.Form onSubmit={onSubmit}>
         {({ handleSubmit }) => (
