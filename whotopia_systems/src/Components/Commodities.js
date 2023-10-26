@@ -15,7 +15,7 @@ export function Commodities(mergedData) {
 
   return (
     <>
-      <h1>Store commodities</h1>
+      <h1>Life-Saving Commodities</h1>
       <p>
         This is an overview of all the commodities and their current stock in
         the store.

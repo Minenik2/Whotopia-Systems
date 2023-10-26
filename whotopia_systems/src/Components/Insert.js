@@ -9,8 +9,10 @@ import {
   hasValue,
   number,
   composeValidators,
-  IconPushLeft16,
-  IconPushRight16,
+  IconImportItems24,
+  IconExportItems24,
+  TabBar,
+  Tab,
 } from "@dhis2/ui";
 
 const dataMutationQuery = {
@@ -46,6 +48,8 @@ const dataMutationQueryTransaction = {
 };
 
 export function Insert(props) {
+  const [dispenseActive, setDispenseActive] = useState(true);
+  const [receiveActive, setReceiveActive] = useState(false);
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
@@ -97,7 +101,14 @@ export function Insert(props) {
     }
   };
   const switchForm = () => {
-    console.log("hi :>");
+    setDispenseActive((current) => !current);
+    setReceiveActive((current) => !current);
+
+    if (dispenseActive) {
+      TODO: "display dispense";
+    } else if (receiveActive) {
+      TODO: "display receive";
+    }
   };
 
   const divStyle = {
@@ -106,90 +117,110 @@ export function Insert(props) {
     gap: "20px",
     "align-items": "flex-end",
   };
+  const textStyle = {
+    "font-size": "14px",
+    "line-height": "19px",
+  };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          "justify-content": "space-evenly",
-          padding: "20px",
-        }}
-      >
-        <Button name="dispense" large onClick={switchForm}>
-          Register dispensed commodity <IconPushRight16 />
-        </Button>
-        <Button name="receive" large onClick={switchForm}>
-          Register received commodity <IconPushLeft16 />
-        </Button>
+    <>
+      <div style={{ margin: "-26px -16px 0" }}>
+        <TabBar fixed>
+          <Tab
+            value="dispense"
+            onClick={switchForm}
+            className={dispenseActive ? "selected" : ""}
+          >
+            Dispense commodities
+          </Tab>
+          <Tab
+            value="receive"
+            onClick={switchForm}
+            className={receiveActive ? "selected" : ""}
+          >
+            Restock inventory
+          </Tab>
+        </TabBar>
       </div>
-      <h1>Register dispensed commodity</h1>
-      <p>
-        Dispense one or multiple commodities and submit to register the
-        transaction.
-      </p>
+      <div>
+        <h1>Register dispensed commodity</h1>
+        <p>
+          Dispense one or multiple commodities and submit to register the
+          transaction. All of these transactions will be found under the
+          overview in <strong>Transaction History</strong>.
+        </p>
+        <br />
 
-      <ReactFinalForm.Form onSubmit={onSubmit}>
-        {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="stuff">
-              <div style={divStyle}>
-                <div>
-                  <ReactFinalForm.Field
-                    component={SingleSelectFieldFF}
-                    name="dataElement"
-                    label="Select commodity"
-                    placeholder="Choose an option"
-                    someAmount="o15CyZiTvxa"
-                    options={dataHistory}
-                    onChange={handleSelect()}
-                    inputWidth="260px"
-                  />
+        <ReactFinalForm.Form onSubmit={onSubmit}>
+          {({ handleSubmit }) => (
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <div className="stuff">
+                <div style={divStyle}>
+                  <div>
+                    <ReactFinalForm.Field
+                      component={SingleSelectFieldFF}
+                      name="dataElement"
+                      label="Select commodity"
+                      placeholder="Choose an option"
+                      someAmount="o15CyZiTvxa"
+                      options={dataHistory}
+                      onChange={handleSelect()}
+                      inputWidth="80vh"
+                    />
+                  </div>
+                  <p style={textStyle}>
+                    <span style={{ color: "#4A5768" }}>In stock:</span> {amount}
+                  </p>
+                  <div>
+                    <ReactFinalForm.Field
+                      name="value"
+                      label="Select amount"
+                      component={InputFieldFF}
+                      validate={composeValidators(hasValue, number)}
+                      inputWidth="100px"
+                    />
+                  </div>
+                  <p style={textStyle}>
+                    <span style={{ color: "#4A5768" }}>
+                      Amount after transaction:
+                    </span>{" "}
+                    {parseInt(total) + parseInt(amount)}
+                  </p>
                 </div>
-                <p>In stock: {amount}</p>
-                <div>
-                  <ReactFinalForm.Field
-                    name="value"
-                    label="Select amount"
-                    component={InputFieldFF}
-                    validate={composeValidators(hasValue, number)}
-                    inputWidth="100px"
-                  />
-                </div>
-                <p>
-                  Amount after transaction: {parseInt(total) + parseInt(amount)}
-                </p>
               </div>
-            </div>
-            <br />
+              <br />
+              <br />
+              <div style={divStyle}>
+                <ReactFinalForm.Field
+                  name="dispenser"
+                  label="Dispensed by"
+                  component={InputFieldFF}
+                  validate={composeValidators(hasValue)}
+                  inputWidth="80vh"
+                />
+                <ReactFinalForm.Field
+                  name="dispensee"
+                  label="Recipient"
+                  component={InputFieldFF}
+                  validate={composeValidators(hasValue)}
+                  inputWidth="80vh"
+                />
+              </div>
 
-            <ReactFinalForm.Field
-              name="dispenser"
-              label="Dispensed by"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue)}
-              inputWidth="50%"
-            />
-            <ReactFinalForm.Field
-              name="dispensee"
-              label="Dispensed to"
-              component={InputFieldFF}
-              validate={composeValidators(hasValue)}
-              inputWidth="50%"
-            />
-            <p>
-              Time registered: {new Date().toDateString() + " "}
-              {new Date().getHours()}:
-              {new Date().getMinutes() > 9
-                ? new Date().getMinutes()
-                : "0" + new Date().getMinutes()}
-            </p>
-            <Button type="submit" primary>
-              Submit
-            </Button>
-          </form>
-        )}
-      </ReactFinalForm.Form>
-    </div>
+              <p>
+                Time registered: {new Date().toDateString() + " "}
+                {new Date().getHours()}:
+                {new Date().getMinutes() > 9
+                  ? new Date().getMinutes()
+                  : "0" + new Date().getMinutes()}
+              </p>
+              <Button type="submit" primary>
+                Submit
+              </Button>
+            </form>
+          )}
+        </ReactFinalForm.Form>
+      </div>
+    </>
   );
 }
