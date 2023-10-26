@@ -110,11 +110,6 @@ export function Insert(props) {
     }
     if (!receiveActive) {
       console.log(ReceiveForm);
-      return (
-        <div>
-          <ReceiveForm />
-        </div>
-      );
     }
   };
 
@@ -150,7 +145,7 @@ export function Insert(props) {
         </TabBar>
       </div>
       <div>
-        <h1>Register dispensed commodity</h1>
+        <h1>Register Dispensed Commodities</h1>
         <p>
           Dispense one or multiple commodities and submit to register the
           transaction. All of these transactions will be found under the
