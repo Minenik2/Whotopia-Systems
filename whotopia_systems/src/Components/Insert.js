@@ -1,6 +1,7 @@
 import React from "react";
 import { useDataMutation } from "@dhis2/app-runtime";
 import { useState } from "react";
+import { ReceiveForm } from "./ReceiveForm";
 import {
   ReactFinalForm,
   InputFieldFF,
@@ -106,8 +107,14 @@ export function Insert(props) {
 
     if (dispenseActive) {
       TODO: "display dispense";
-    } else if (receiveActive) {
-      TODO: "display receive";
+    }
+    if (!receiveActive) {
+      console.log(ReceiveForm);
+      return (
+        <div>
+          <ReceiveForm />
+        </div>
+      );
     }
   };
 
@@ -131,14 +138,14 @@ export function Insert(props) {
             onClick={switchForm}
             className={dispenseActive ? "selected" : ""}
           >
-            Dispense commodities
+            Dispense Commodities
           </Tab>
           <Tab
             value="receive"
             onClick={switchForm}
             className={receiveActive ? "selected" : ""}
           >
-            Restock inventory
+            Restock Inventory
           </Tab>
         </TabBar>
       </div>
