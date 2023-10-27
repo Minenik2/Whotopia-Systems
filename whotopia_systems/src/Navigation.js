@@ -5,17 +5,17 @@ export function Navigation(props) {
   return (
     <Menu>
       <MenuItem
-        label="Browse"
-        active={props.activePage == "Browse"}
-        onClick={() => props.activePageHandler("Browse")}
+        label="Commodity Inventory"
+        active={props.activePage == "Commodities"}
+        onClick={() => props.activePageHandler("Commodities")}
       />
       <MenuItem
-        label="Insert"
+        label="Register transaction"
         active={props.activePage == "Insert"}
         onClick={() => props.activePageHandler("Insert")}
       />
       <MenuItem
-        label="Datasets"
+        label="Transaction History"
         active={props.activePage == "Datasets"}
         onClick={() => props.activePageHandler("Datasets")}
       />
