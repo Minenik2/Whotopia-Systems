@@ -9,11 +9,11 @@ import {
   composeValidators,
 } from "@dhis2/ui";
 
-export function ReceiveForm() {
+export function Receive() {
   return (
     <>
       <div>
-        <h1>Register inventory restock</h1>
+        <h1>Register Inventory Restock</h1>
         <p>
           Here you can register new items when restocking the store. All of
           these transactions will be found under the overview in{" "}
