@@ -61,6 +61,7 @@ export function Dispense(props) {
     dataMutationQueryTransaction
   );
 
+  // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
   let dataHistory = [];
   mergedData.map((row) => {
@@ -88,6 +89,7 @@ export function Dispense(props) {
     alert("Commodities changed");
   }
 
+  // error i handleselect når brukeren klikker sumbit please fix
   const handleSelect = () => {
     for (let option in dataHistory) {
       if (dataHistory[option].label == event.target.innerHTML) {
