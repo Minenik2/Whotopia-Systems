@@ -92,7 +92,7 @@ export function Dispense(props) {
   // error i handleselect når brukeren klikker sumbit please fix
   const handleSelect = () => {
     for (let option in dataHistory) {
-      if (dataHistory[option].label == event.target.innerHTML) {
+      if (event && dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
       }
     }
