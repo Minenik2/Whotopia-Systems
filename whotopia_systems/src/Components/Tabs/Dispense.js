@@ -56,6 +56,7 @@ const dataMutationQueryTransaction = {
 export function Dispense(props) {
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
+  const [dateAndTime, setDateAndTime] = useState('');
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
   const [mutateTransaction, { loading2, error2 }] = useDataMutation(
     dataMutationQueryTransaction
@@ -76,13 +77,13 @@ export function Dispense(props) {
     mutate({
       value: formInput.value,
       dataElement: formInput.dataElement,
-      period: "202209",
+      period: dateAndTime,
       orgUnit: "kbGqmM6ZWWV",
     });
     mutateTransaction({
       value: formInput.value,
       commodityId: formInput.dataElement,
-      period: new Date().toDateString(),
+      period: dateAndTime,
       dispensedBy: formInput.dispenser,
       DispensedTo: formInput.dispensee,
     });
@@ -105,6 +106,10 @@ export function Dispense(props) {
       setTotal(parseInt(event.target.value));
     }
   };
+
+  const handleDateAndTime = (event) => {
+    setDateAndTime(event.target.value);
+  }
 
   return (
     <>
@@ -172,9 +177,17 @@ export function Dispense(props) {
                   inputWidth="80vh"
                 />
               </div>
-
+              <div>
+                <p>Select date & time</p>
+                <input 
+                  type="datetime-local" 
+                  name="dateTime"
+                  value={dateAndTime}
+                  onChange={handleDateAndTime}
+                />
+              </div>
               <p>
-                Time registered: {new Date().toDateString() + " "}
+                Current time: {new Date().toDateString() + " "}
                 {new Date().getHours()}:
                 {new Date().getMinutes() > 9
                   ? new Date().getMinutes()
