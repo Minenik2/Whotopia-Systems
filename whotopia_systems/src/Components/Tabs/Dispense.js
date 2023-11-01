@@ -95,7 +95,6 @@ export function Dispense(props) {
       orgUnit: "kbGqmM6ZWWV",
     });
     props.refetch();
-    console.log(props.transactions);
     props.transactions.dataValues.push({
       value: formInput.value * -1,
       label: displayNameCommodity,
@@ -106,7 +105,9 @@ export function Dispense(props) {
       inStock: parseInt(amount),
       afterTransaction: parseInt(amount) - parseInt(total),
     });
-    mutateTransaction(props.transactions.dataValues);
+    console.log(props.transactions);
+    console.log("hihi");
+    mutateTransaction(props.transactions.dataValues[1]);
     props.refetch();
     alert("Commodities changed");
   }
