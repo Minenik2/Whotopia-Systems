@@ -40,14 +40,26 @@ const dataMutationQuery = {
 const dataMutationQueryTransaction = {
   resource: "dataStore/IN5320-<3>/Transactions",
   type: "update",
-  data: ({ value, commodityId, period, dispensedBy, DispensedTo }) => ({
+  data: ({
+    label,
+    value,
+    inStock,
+    afterTransaction,
+    commodityId,
+    period,
+    dispensedBy,
+    DispensedTo,
+  }) => ({
     dataValues: [
       {
+        label: label,
         commodityId: commodityId,
         period: period,
         dispensedBy: dispensedBy,
         DispensedTo: DispensedTo,
         value: value,
+        inStock: inStock,
+        afterTransaction: afterTransaction,
       },
     ],
   }),
@@ -62,6 +74,8 @@ export function Dispense(props) {
     dataMutationQueryTransaction
   );
 
+  const [displayNameCommodity, setDisplayNameCommodity] = useState("");
+
   // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
   let dataHistory = [];
@@ -75,28 +89,33 @@ export function Dispense(props) {
 
   function onSubmit(formInput) {
     mutate({
-      value: formInput.value,
+      value: parseInt(amount) - parseInt(total),
       dataElement: formInput.dataElement,
       period: "202209",
       orgUnit: "kbGqmM6ZWWV",
     });
     props.refetch();
+    console.log(displayNameCommodity);
     mutateTransaction({
-      value: formInput.value,
+      value: formInput.value * -1,
+      label: displayNameCommodity,
       commodityId: formInput.dataElement,
       period: dateAndTime,
       dispensedBy: formInput.dispenser,
       DispensedTo: formInput.dispensee,
+      inStock: parseInt(amount),
+      afterTransaction: parseInt(amount) - parseInt(total),
     });
     props.refetch();
     alert("Commodities changed");
   }
 
-  // error i handleselect når brukeren klikker sumbit please fix
   const handleSelect = () => {
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
         setAmount(dataHistory[option].amount);
+        setDisplayNameCommodity(dataHistory[option].label);
+        console.log("display name commodity is: " + displayNameCommodity);
       }
     }
   };
@@ -157,7 +176,7 @@ export function Dispense(props) {
                     <span style={{ color: "#4A5768" }}>
                       Amount after transaction:
                     </span>{" "}
-                    {parseInt(total) + parseInt(amount)}
+                    {parseInt(amount) - parseInt(total)}
                   </p>
                 </div>
               </div>

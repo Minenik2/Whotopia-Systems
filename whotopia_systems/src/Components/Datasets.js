@@ -18,7 +18,13 @@ export function Datasets(props) {
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>
             {props.mergedData.dataValues.map((listItem) => {
-              let label = "Transaction: " + listItem.period;
+              let label =
+                "Transaction: " +
+                listItem.label +
+                (listItem.value > 0
+                  ? " recieved " + listItem.value
+                  : " dispensed " + listItem.value + " ") +
+                listItem.period;
               return (
                 <MenuItem
                   key={listItem.commodityId}

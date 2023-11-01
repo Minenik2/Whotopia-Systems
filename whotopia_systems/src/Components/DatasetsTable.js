@@ -17,6 +17,7 @@ export function DatasetsTable(props) {
         <TableRowHead>
           <TableCellHead>ID</TableCellHead>
           <TableCellHead>Amount</TableCellHead>
+          <TableCellHead>After Transaction</TableCellHead>
           <TableCellHead>Created</TableCellHead>
           <TableCellHead>Dispensed By</TableCellHead>
           <TableCellHead>Dispensed To</TableCellHead>
@@ -26,6 +27,7 @@ export function DatasetsTable(props) {
         <TableRow>
           <TableCell>{props.selectedItem.commodityId}</TableCell>
           <TableCell>{props.selectedItem.value}</TableCell>
+          <TableCell>{props.selectedItem.afterTransaction}</TableCell>
           <TableCell>{props.selectedItem.period}</TableCell>
           <TableCell>{props.selectedItem.dispensedBy}</TableCell>
           <TableCell>{props.selectedItem.DispensedTo}</TableCell>
