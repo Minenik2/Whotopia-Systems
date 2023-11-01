@@ -77,7 +77,7 @@ export function Dispense(props) {
     mutate({
       value: formInput.value,
       dataElement: formInput.dataElement,
-      period: dateAndTime,
+      period: "202209",
       orgUnit: "kbGqmM6ZWWV",
     });
     mutateTransaction({
