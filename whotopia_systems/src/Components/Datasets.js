@@ -19,11 +19,11 @@ export function Datasets(props) {
           <Menu>
             {props.mergedData.dataValues.map((listItem) => {
               let label =
-                "Transaction: " +
                 listItem.label +
                 (listItem.value > 0
                   ? " recieved " + listItem.value
-                  : " dispensed " + listItem.value + " ") +
+                  : " dispensed " + listItem.value) +
+                ", " +
                 listItem.period;
               return (
                 <MenuItem

@@ -9,6 +9,7 @@ export function Insert(props) {
 
   let mergedData = props.mergedData;
   let refetch = props.refetch;
+  let transactions = props.transactions;
 
   function activeTabHandler(tab) {
     setActiveTab(tab);
@@ -21,7 +22,11 @@ export function Insert(props) {
       </div>
       <div>
         {activeTab === "Dispense" && (
-          <Dispense mergedData={mergedData} refetch={refetch} />
+          <Dispense
+            mergedData={mergedData}
+            refetch={refetch}
+            transactions={transactions}
+          />
         )}
         {activeTab === "Receive" && <Receive />}
       </div>
