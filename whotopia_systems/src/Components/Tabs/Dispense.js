@@ -80,6 +80,7 @@ export function Dispense(props) {
       period: "202209",
       orgUnit: "kbGqmM6ZWWV",
     });
+    props.refetch();
     mutateTransaction({
       value: formInput.value,
       commodityId: formInput.dataElement,
