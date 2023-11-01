@@ -8,6 +8,7 @@ export function Insert(props) {
   const [activeTab, setActiveTab] = useState("Dispense");
 
   let mergedData = props.mergedData;
+  let refetch = props.refetch;
 
   function activeTabHandler(tab) {
     setActiveTab(tab);
@@ -19,7 +20,9 @@ export function Insert(props) {
         <TabNav activeTab={activeTab} activeTabHandler={activeTabHandler} />
       </div>
       <div>
-        {activeTab === "Dispense" && <Dispense mergedData={mergedData} />}
+        {activeTab === "Dispense" && (
+          <Dispense mergedData={mergedData} refetch={refetch} />
+        )}
         {activeTab === "Receive" && <Receive />}
       </div>
     </>

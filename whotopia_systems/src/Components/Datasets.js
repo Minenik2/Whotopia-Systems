@@ -6,6 +6,7 @@ import { DatasetsTable } from "./DatasetsTable";
 export function Datasets(props) {
   console.log(props.mergedData);
   const [selectedItem, setSelectedItem] = useState(null);
+
   return (
     <>
       <h1>Transaction History</h1>

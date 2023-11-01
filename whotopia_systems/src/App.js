@@ -6,6 +6,7 @@ import { Insert } from "./Components/Insert";
 import { Navigation } from "./Navigation";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader } from "@dhis2/ui";
+import { RefreshAPI } from "./Components/RefreshAPI";
 
 function MyApp() {
   const [activePage, setActivePage] = useState("Commodities");
@@ -52,7 +53,8 @@ function MyApp() {
     });
   }
 
-  const { loading, error, data } = useDataQuery(dataQuery);
+  const { loading, error, data, refetch } = useDataQuery(dataQuery);
+
   if (error) {
     return <span>ERROR: {error.message}</span>;
   }
@@ -75,7 +77,9 @@ function MyApp() {
           {activePage === "Commodities" && (
             <Commodities mergedData={mergedData} />
           )}
-          {activePage === "Insert" && <Insert mergedData={mergedData} />}
+          {activePage === "Insert" && (
+            <Insert mergedData={mergedData} refetch={refetch} />
+          )}
           {activePage === "Datasets" && (
             <Datasets mergedData={data.dataStore} />
           )}

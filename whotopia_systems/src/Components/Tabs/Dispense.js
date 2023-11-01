@@ -56,7 +56,7 @@ const dataMutationQueryTransaction = {
 export function Dispense(props) {
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
-  const [dateAndTime, setDateAndTime] = useState('');
+  const [dateAndTime, setDateAndTime] = useState("");
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
   const [mutateTransaction, { loading2, error2 }] = useDataMutation(
     dataMutationQueryTransaction
@@ -87,6 +87,7 @@ export function Dispense(props) {
       dispensedBy: formInput.dispenser,
       DispensedTo: formInput.dispensee,
     });
+    props.refetch();
     alert("Commodities changed");
   }
 
@@ -109,7 +110,7 @@ export function Dispense(props) {
 
   const handleDateAndTime = (event) => {
     setDateAndTime(event.target.value);
-  }
+  };
 
   return (
     <>
@@ -179,8 +180,8 @@ export function Dispense(props) {
               </div>
               <div>
                 <p>Select date & time</p>
-                <input 
-                  type="datetime-local" 
+                <input
+                  type="datetime-local"
                   name="dateTime"
                   value={dateAndTime}
                   onChange={handleDateAndTime}
