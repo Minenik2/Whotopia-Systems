@@ -40,28 +40,8 @@ const dataMutationQuery = {
 const dataMutationQueryTransaction = {
   resource: "dataStore/IN5320-<3>/Transactions",
   type: "update",
-  data: ({
-    label,
-    value,
-    inStock,
-    afterTransaction,
-    commodityId,
-    period,
-    dispensedBy,
-    DispensedTo,
-  }) => ({
-    dataValues: [
-      {
-        label: label,
-        commodityId: commodityId,
-        period: period,
-        dispensedBy: dispensedBy,
-        DispensedTo: DispensedTo,
-        value: value,
-        inStock: inStock,
-        afterTransaction: afterTransaction,
-      },
-    ],
+  data: ({ array }) => ({
+    dataValues: array,
   }),
 };
 
@@ -95,6 +75,7 @@ export function Dispense(props) {
       orgUnit: "kbGqmM6ZWWV",
     });
     props.refetch();
+    console.log(props.transactions);
     props.transactions.dataValues.push({
       value: formInput.value * -1,
       label: displayNameCommodity,
@@ -107,7 +88,9 @@ export function Dispense(props) {
     });
     console.log(props.transactions);
     console.log("hihi");
-    mutateTransaction(props.transactions.dataValues[1]);
+    mutateTransaction({
+      array: props.transactions.dataValues,
+    });
     props.refetch();
     alert("Commodities changed");
   }
