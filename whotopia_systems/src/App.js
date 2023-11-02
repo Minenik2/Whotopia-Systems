@@ -65,6 +65,9 @@ function MyApp() {
 
   if (data) {
     let mergedData = mergeData(data);
+    let sortedData = mergedData.sort((a, b) =>
+      a.displayName.substring([14]) < b.displayName.substring([14]) ? -1 : 1
+    );
     return (
       <div className={classes.container}>
         <div className={classes.left}>
@@ -75,11 +78,11 @@ function MyApp() {
         </div>
         <div className={classes.right}>
           {activePage === "Commodities" && (
-            <Commodities mergedData={mergedData} />
+            <Commodities mergedData={sortedData} />
           )}
           {activePage === "Insert" && (
             <Insert
-              mergedData={mergedData}
+              mergedData={sortedData}
               refetch={refetch}
               transactions={data.dataStore}
             />

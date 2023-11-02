@@ -118,94 +118,92 @@ export function Dispense(props) {
   };
 
   return (
-    <>
-      <div>
-        <h1>Register Dispensed Commodities</h1>
-        <p>
-          Dispense one or multiple commodities and submit to register the
-          transaction. All of these transactions will be found under the
-          overview in <strong>Transaction History</strong>.
-        </p>
-        <br />
+    <div>
+      <h1>Register Dispensed Commodities</h1>
+      <p>
+        Dispense one or multiple commodities and submit to register the
+        transaction. All of these transactions will be found under the overview
+        in <strong>Transaction History</strong>.
+      </p>
+      <br />
 
-        <ReactFinalForm.Form onSubmit={onSubmit}>
-          {({ handleSubmit }) => (
-            <form onSubmit={handleSubmit} autoComplete="off">
-              <div className="stuff">
-                <div style={divStyle}>
-                  <div>
-                    <ReactFinalForm.Field
-                      component={SingleSelectFieldFF}
-                      name="dataElement"
-                      label="Select commodity"
-                      placeholder="Choose an option"
-                      someAmount="o15CyZiTvxa"
-                      options={dataHistory}
-                      onChange={handleSelect()}
-                      inputWidth="80vh"
-                    />
-                  </div>
-                  <p style={textStyle}>
-                    <span style={{ color: "#4A5768" }}>In stock:</span> {amount}
-                  </p>
-                  <div>
-                    <ReactFinalForm.Field
-                      name="value"
-                      label="Select amount"
-                      component={InputFieldFF}
-                      validate={composeValidators(hasValue, number)}
-                      inputWidth="100px"
-                    />
-                  </div>
-                  <p style={textStyle}>
-                    <span style={{ color: "#4A5768" }}>
-                      Amount after transaction:
-                    </span>{" "}
-                    {parseInt(amount) - parseInt(total)}
-                  </p>
-                </div>
-              </div>
-              <br />
-              <br />
+      <ReactFinalForm.Form onSubmit={onSubmit}>
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit} autoComplete="off">
+            <div className="stuff">
               <div style={divStyle}>
-                <ReactFinalForm.Field
-                  name="dispenser"
-                  label="Dispensed by"
-                  component={InputFieldFF}
-                  validate={composeValidators(hasValue)}
-                  inputWidth="80vh"
-                />
-                <ReactFinalForm.Field
-                  name="dispensee"
-                  label="Recipient"
-                  component={InputFieldFF}
-                  validate={composeValidators(hasValue)}
-                  inputWidth="80vh"
-                />
+                <div>
+                  <ReactFinalForm.Field
+                    component={SingleSelectFieldFF}
+                    name="dataElement"
+                    label="Select commodity"
+                    placeholder="Choose an option"
+                    someAmount="o15CyZiTvxa"
+                    options={dataHistory}
+                    onChange={handleSelect()}
+                    inputWidth="80vh"
+                  />
+                </div>
+                <p style={textStyle}>
+                  <span style={{ color: "#4A5768" }}>In stock:</span> {amount}
+                </p>
+                <div>
+                  <ReactFinalForm.Field
+                    name="value"
+                    label="Select amount"
+                    component={InputFieldFF}
+                    validate={composeValidators(hasValue, number)}
+                    inputWidth="100px"
+                  />
+                </div>
+                <p style={textStyle}>
+                  <span style={{ color: "#4A5768" }}>
+                    Amount after transaction:
+                  </span>{" "}
+                  {parseInt(amount) - parseInt(total)}
+                </p>
               </div>
-              <div>
-                <p>Select date & time</p>
-                <input
-                  type="datetime-local"
-                  name="dateTime"
-                  value={dateAndTime}
-                  onChange={handleDateAndTime}
-                />
-              </div>
-              <p>
-                Current time: {new Date().toDateString() + " "}
-                {new Date().getHours()}:
-                {new Date().getMinutes() > 9
-                  ? new Date().getMinutes()
-                  : "0" + new Date().getMinutes()}
-              </p>
-              <Button type="submit" primary>
-                Submit
-              </Button>
-            </form>
-          )}
-        </ReactFinalForm.Form>
-      </div>
-    </>
+            </div>
+            <br />
+            <br />
+            <div style={divStyle}>
+              <ReactFinalForm.Field
+                name="dispenser"
+                label="Dispensed by"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue)}
+                inputWidth="80vh"
+              />
+              <ReactFinalForm.Field
+                name="dispensee"
+                label="Recipient"
+                component={InputFieldFF}
+                validate={composeValidators(hasValue)}
+                inputWidth="80vh"
+              />
+            </div>
+            <div>
+              <p>Select date & time</p>
+              <input
+                type="datetime-local"
+                name="dateTime"
+                value={dateAndTime}
+                onChange={handleDateAndTime}
+              />
+            </div>
+            <p>
+              Current time: {new Date().toDateString() + " "}
+              {new Date().getHours()}:
+              {new Date().getMinutes() > 9
+                ? new Date().getMinutes()
+                : "0" + new Date().getMinutes()}
+            </p>
+            <Button type="submit" primary>
+              Submit
+            </Button>
+          </form>
+        )}
+      </ReactFinalForm.Form>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,10 +8,19 @@ import {
   TableHead,
   TableRow,
   TableRowHead,
+  InputField,
 } from "@dhis2/ui";
 
 export function Commodities(mergedData) {
+  const [searchInp, setSearchInp] = useState("");
   console.log(mergedData.mergedData);
+
+  window.addEventListener("keyup", (event) => handleSearch(event));
+
+  const handleSearch = (event) => {
+    //Shouldn't this happen automatically??????
+    setSearchInp(searchInp + event.key);
+  };
 
   return (
     <>
@@ -20,6 +29,15 @@ export function Commodities(mergedData) {
         This is an overview of all the commodities and their current stock in
         the store.
       </p>
+
+      <InputField
+        label="Find a Commodity"
+        name="searchInput"
+        placeholder="Search..."
+        type="search"
+        value={searchInp}
+      />
+
       <Table>
         <TableHead>
           <TableRowHead>
