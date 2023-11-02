@@ -9,12 +9,19 @@ import {
   hasValue,
   number,
   composeValidators,
+  IconAdd16,
 } from "@dhis2/ui";
 
 const divStyle = {
   display: "flex",
   "flex-wrap": "no-wrap",
-  gap: "20px",
+  gap: "2vw",
+  "align-items": "flex-end",
+};
+const divStyle2 = {
+  display: "flex",
+  "flex-wrap": "no-wrap",
+
   "align-items": "flex-end",
 };
 const textStyle = {
@@ -131,7 +138,7 @@ export function Dispense(props) {
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="stuff">
-              <div style={divStyle}>
+              <div style={divStyle2}>
                 <div>
                   <ReactFinalForm.Field
                     component={SingleSelectFieldFF}
@@ -144,24 +151,39 @@ export function Dispense(props) {
                     inputWidth="80vh"
                   />
                 </div>
-                <p style={textStyle}>
-                  <span style={{ color: "#4A5768" }}>In stock:</span> {amount}
-                </p>
                 <div>
                   <ReactFinalForm.Field
                     name="value"
                     label="Select amount"
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
-                    inputWidth="100px"
+                    inputWidth="14vh"
                   />
                 </div>
-                <p style={textStyle}>
-                  <span style={{ color: "#4A5768" }}>
-                    Amount after transaction:
-                  </span>{" "}
-                  {parseInt(amount) - parseInt(total)}
-                </p>
+                <div style={{ width: "2vh" }}></div>
+                <ReactFinalForm.Field
+                  name="inStock"
+                  label="Current stock"
+                  component={InputFieldFF}
+                  validate={composeValidators(number)}
+                  inputWidth="14vh"
+                  placeholder={amount}
+                  readOnly
+                />
+                <ReactFinalForm.Field
+                  name="afterTrasaction"
+                  label="After transaction"
+                  component={InputFieldFF}
+                  validate={composeValidators(number)}
+                  inputWidth="14vh"
+                  placeholder={parseInt(amount) - parseInt(total)}
+                  readOnly
+                />
+                <div style={{ width: "2vh" }}></div>
+                <Button>
+                  <IconAdd16 />
+                  Add Commodity
+                </Button>
               </div>
             </div>
             <br />
@@ -172,14 +194,14 @@ export function Dispense(props) {
                 label="Dispensed by"
                 component={InputFieldFF}
                 validate={composeValidators(hasValue)}
-                inputWidth="80vh"
+                inputWidth="60vh"
               />
               <ReactFinalForm.Field
                 name="dispensee"
                 label="Recipient"
                 component={InputFieldFF}
                 validate={composeValidators(hasValue)}
-                inputWidth="80vh"
+                inputWidth="60vh"
               />
             </div>
             <div>
