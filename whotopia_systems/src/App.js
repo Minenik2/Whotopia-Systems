@@ -35,6 +35,9 @@ function MyApp() {
     dataStore: {
       resource: "dataStore/IN5320-<3>/Transactions",
     },
+    dataStoreUsers: {
+      resource: "dataStore/IN5320-<3>/USERS",
+    },
   };
 
   function mergeData(data) {
@@ -85,6 +88,7 @@ function MyApp() {
               mergedData={sortedData}
               refetch={refetch}
               transactions={data.dataStore}
+              users={data.dataStoreUsers}
             />
           )}
           {activePage === "Datasets" && (

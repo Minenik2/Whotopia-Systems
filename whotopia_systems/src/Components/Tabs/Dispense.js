@@ -192,15 +192,24 @@ export function Dispense(props) {
               <ReactFinalForm.Field
                 name="dispenser"
                 label="Dispensed by"
-                component={InputFieldFF}
+                component={SingleSelectFieldFF}
                 validate={composeValidators(hasValue)}
                 inputWidth="60vh"
+                filterable={true}
+                noMatchText={console.log("")}
+                onChange={console.log("")}
+                options={props.users.userArray}
               />
               <ReactFinalForm.Field
                 name="dispensee"
                 label="Recipient"
-                component={InputFieldFF}
+                component={SingleSelectFieldFF}
                 validate={composeValidators(hasValue)}
+                inputWidth="60vh"
+                filterable={true}
+                noMatchText={console.log("")}
+                onChange={console.log("")}
+                options={props.users.userArray}
                 inputWidth="60vh"
               />
             </div>
