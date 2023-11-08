@@ -28,102 +28,11 @@ const textStyle = {
   "font-size": "14px",
   "line-height": "19px",
 };
-const dataMutationQuery = {
-  resource: "dataValueSets",
-  type: "create",
-  dataSet: "ULowA8V3ucd",
-  data: ({ value, dataElement, period, orgUnit }) => ({
-    dataValues: [
-      {
-        dataElement: dataElement,
-        period: period,
-        orgUnit: orgUnit,
-        value: value,
-      },
-    ],
-  }),
-};
-
-const dataMutationQueryTransaction = {
-  resource: "dataStore/IN5320-<3>/Transactions",
-  type: "update",
-  data: ({ array }) => ({
-    dataValues: array,
-  }),
-};
 
 export function Dispense(props) {
-  const [amount, setAmount] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [dateAndTime, setDateAndTime] = useState("");
-  const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
-  const [mutateTransaction, { loading2, error2 }] = useDataMutation(
-    dataMutationQueryTransaction
-  );
-
-  const [displayNameCommodity, setDisplayNameCommodity] = useState("");
-
-  // lager en array for alle option elementer i form
-  let mergedData = props.mergedData;
-  let dataHistory = [];
-  mergedData.map((row) => {
-    dataHistory.push({
-      label: row.displayName.substring([14]),
-      value: row.id,
-      amount: row.value,
-    });
-  });
-
-  function onSubmit(formInput) {
-    mutate({
-      value: parseInt(amount) - parseInt(total),
-      dataElement: formInput.dataElement,
-      period: "202209",
-      orgUnit: "kbGqmM6ZWWV",
-    });
-    props.refetch();
-    console.log(props.transactions);
-    props.transactions.dataValues.push({
-      value: formInput.value * -1,
-      label: displayNameCommodity,
-      commodityId: formInput.dataElement,
-      period: dateAndTime,
-      dispensedBy: formInput.dispenser,
-      DispensedTo: formInput.dispensee,
-      inStock: parseInt(amount),
-      afterTransaction: parseInt(amount) - parseInt(total),
-    });
-    console.log(props.transactions);
-    console.log("hihi");
-    mutateTransaction({
-      array: props.transactions.dataValues,
-    });
-    props.refetch();
-    alert("Commodities changed");
-  }
-
-  const handleSelect = () => {
-    for (let option in dataHistory) {
-      if (event && dataHistory[option].label == event.target.innerHTML) {
-        setAmount(dataHistory[option].amount);
-        setDisplayNameCommodity(dataHistory[option].label);
-        console.log("display name commodity is: " + displayNameCommodity);
-      }
-    }
-  };
-
-  window.addEventListener("keyup", (event) => handleAmount(event));
-
-  const handleAmount = (event) => {
-    if (event.target.id == "value") {
-      setTotal(parseInt(event.target.value));
-    }
-  };
-
-  const handleDateAndTime = (event) => {
-    setDateAndTime(event.target.value);
-  };
-
+  let amount = props.amount;
+  let total = props.total;
+  let dateAndTime = props.dateAndTime;
   return (
     <div>
       <h1>Register Dispensed Commodities</h1>
@@ -134,7 +43,7 @@ export function Dispense(props) {
       </p>
       <br />
 
-      <ReactFinalForm.Form onSubmit={onSubmit}>
+      <ReactFinalForm.Form onSubmit={props.onSubmit}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="stuff">
@@ -146,8 +55,8 @@ export function Dispense(props) {
                     label="Select commodity"
                     placeholder="Choose an option"
                     someAmount="o15CyZiTvxa"
-                    options={dataHistory}
-                    onChange={handleSelect()}
+                    options={props.dataHistory}
+                    onChange={props.handleSelect()}
                     inputWidth="80vh"
                   />
                 </div>
@@ -219,7 +128,7 @@ export function Dispense(props) {
                 type="datetime-local"
                 name="dateTime"
                 value={dateAndTime}
-                onChange={handleDateAndTime}
+                onChange={props.handleDateAndTime}
               />
             </div>
             <p>
