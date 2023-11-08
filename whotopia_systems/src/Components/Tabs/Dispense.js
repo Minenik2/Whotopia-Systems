@@ -122,7 +122,6 @@ export function Dispense(props) {
                 noMatchText={console.log("")}
                 onChange={console.log("")}
                 options={props.users.userArray}
-                inputWidth="60vh"
               />
             </div>
             <div>
@@ -136,7 +135,10 @@ export function Dispense(props) {
             </div>
             <p>
               Current time: {new Date().toDateString() + " "}
-              {new Date().getHours()}:
+              {new Date().getHours() > 9
+                ? new Date().getHours()
+                : "0" + new Date().getHours()}
+              :
               {new Date().getMinutes() > 9
                 ? new Date().getMinutes()
                 : "0" + new Date().getMinutes()}
