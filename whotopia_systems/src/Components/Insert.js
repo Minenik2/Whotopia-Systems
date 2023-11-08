@@ -135,6 +135,8 @@ export function Insert(props) {
 
   function activeTabHandler(tab) {
     setActiveTab(tab);
+    setAmount(0);
+    setTotal(0);
   }
 
   return (
