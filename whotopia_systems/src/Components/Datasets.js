@@ -17,7 +17,7 @@ export function Datasets(props) {
       <div className={classes.container}>
         <div className={classes.left} style={{ width: 50 + "vh" }}>
           <Menu>
-            {props.mergedData.dataValues.map((listItem) => {
+            {props.mergedData.dataValues.toReversed().map((listItem) => {
               let label =
                 listItem.label +
                 (listItem.value > 0
