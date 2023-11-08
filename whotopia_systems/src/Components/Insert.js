@@ -4,6 +4,7 @@ import { Receive } from "./Tabs/Receive";
 import { Dispense } from "./Tabs/Dispense";
 import { TabNav } from "./TabNav";
 import { useDataMutation } from "@dhis2/app-runtime";
+import { AlertBar } from "@dhis2-ui/alert";
 
 const dataMutationQuery = {
   resource: "dataValueSets",
@@ -32,6 +33,10 @@ const dataMutationQueryTransaction = {
 export function Insert(props) {
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
+  const [alertHidden, setAlertHidden] = useState(true);
+  const [error, setError] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [warningText, setWarningText] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
   const [mutateTransaction, { loading2, error2 }] = useDataMutation(
@@ -81,7 +86,8 @@ export function Insert(props) {
       array: props.transactions.dataValues,
     });
     props.refetch();
-    alert("Commodities changed");
+    setAlertHidden(false);
+    //alert("Commodities changed");
   }
 
   const handleSelect = () => {
@@ -99,6 +105,20 @@ export function Insert(props) {
   const handleAmount = (event) => {
     if (event.target.id == "value") {
       setTotal(parseInt(event.target.value));
+      if (amount < event.target.value) {
+        setError(true);
+        setWarningText("Select a lower amount than current stock");
+      } else if (event.target.value <= 0 && amount > event.target.value) {
+        setError(true);
+        setWarningText("Cannot dispense negative or nothing");
+      } else if (event.target.value === amount) {
+        setWarning(true);
+        setWarningText("This will remove full stock");
+      } else {
+        setError(false);
+        setWarning(false);
+        setWarningText("");
+      }
     }
   };
 
@@ -118,6 +138,14 @@ export function Insert(props) {
 
   return (
     <>
+      <div style={{ margin: "auto", position: "absolute", "z-index": "1" }}>
+        <AlertBar
+          hidden={alertHidden}
+          children="Commodities changed"
+          display=""
+          success
+        />
+      </div>
       <div style={{ margin: "-26px -16px 0" }}>
         <TabNav activeTab={activeTab} activeTabHandler={activeTabHandler} />
       </div>
@@ -135,6 +163,9 @@ export function Insert(props) {
             amount={amount}
             total={total}
             dateAndTime={dateAndTime}
+            error={error}
+            warning={warning}
+            warningText={warningText}
           />
         )}
         {activeTab === "Receive" && (
