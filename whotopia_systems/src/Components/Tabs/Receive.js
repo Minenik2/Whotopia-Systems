@@ -65,6 +65,9 @@ export function Receive(props) {
                     component={InputFieldFF}
                     validate={composeValidators(hasValue, number)}
                     inputWidth="14vh"
+                    warning={props.warning}
+                    error={props.error}
+                    validationText={props.warningText}
                   />
                 </div>
                 <div style={{ width: "2vh" }}></div>

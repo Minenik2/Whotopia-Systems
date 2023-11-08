@@ -34,7 +34,7 @@ export function Insert(props) {
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
   const [alertHidden, setAlertHidden] = useState(true);
-  const [error, setError] = useState(false);
+  const [errorInput, setErrorInput] = useState(false);
   const [warning, setWarning] = useState(false);
   const [warningText, setWarningText] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
@@ -105,17 +105,18 @@ export function Insert(props) {
   const handleAmount = (event) => {
     if (event.target.id == "value") {
       setTotal(parseInt(event.target.value));
-      if (amount < event.target.value) {
-        setError(true);
+      if (activeTab == "Dispense" && amount < event.target.value) {
+        setErrorInput(true);
         setWarningText("Select a lower amount than current stock");
       } else if (event.target.value <= 0 && amount > event.target.value) {
-        setError(true);
-        setWarningText("Cannot dispense negative or nothing");
-      } else if (event.target.value === amount) {
+        setErrorInput(true);
+        setWarningText("please insert positive number");
+      } else if (activeTab == "Dispense" && event.target.value == amount) {
+        setErrorInput(false);
         setWarning(true);
         setWarningText("This will remove full stock");
       } else {
-        setError(false);
+        setErrorInput(false);
         setWarning(false);
         setWarningText("");
       }
@@ -163,7 +164,7 @@ export function Insert(props) {
             amount={amount}
             total={total}
             dateAndTime={dateAndTime}
-            error={error}
+            error={errorInput}
             warning={warning}
             warningText={warningText}
           />
@@ -181,6 +182,9 @@ export function Insert(props) {
             amount={amount}
             total={total}
             dateAndTime={dateAndTime}
+            error={errorInput}
+            warning={warning}
+            warningText={warningText}
           />
         )}
       </div>
