@@ -4,22 +4,21 @@ import {
   TableBody,
   TableCell,
   TableCellHead,
-  TableFoot,
   TableHead,
   TableRow,
   TableRowHead,
-  InputField,
 } from "@dhis2/ui";
+import { Input } from "@dhis2-ui/input";
 
 export function Commodities(mergedData) {
-  const [searchInp, setSearchInp] = useState("");
-  console.log(mergedData.mergedData);
+  const [filterword, setFilterword] = useState("");
+  // console log the arraylist of commodities if necessary
+  //console.log(mergedData.mergedData);
 
   window.addEventListener("keyup", (event) => handleSearch(event));
 
   const handleSearch = (event) => {
-    //Shouldn't this happen automatically??????
-    setSearchInp(searchInp + event.key);
+    setFilterword(event.target.value.toLowerCase());
   };
 
   return (
@@ -30,12 +29,11 @@ export function Commodities(mergedData) {
         the store.
       </p>
 
-      <InputField
+      <Input
         label="Find a Commodity"
         name="searchInput"
         placeholder="Search..."
-        type="search"
-        value={searchInp}
+        type="text"
       />
 
       <Table>
@@ -48,13 +46,17 @@ export function Commodities(mergedData) {
         </TableHead>
         <TableBody>
           {mergedData.mergedData.map((row) => {
-            return (
-              <TableRow key={row.id}>
-                <TableCell>{row.displayName.substring([14])}</TableCell>
-                <TableCell>{row.value}</TableCell>
-                <TableCell>{row.id}</TableCell>
-              </TableRow>
-            );
+            if (row.displayName.toLowerCase().includes(filterword)) {
+              return (
+                <TableRow key={row.id}>
+                  <TableCell>{row.displayName.substring([14])}</TableCell>
+                  <TableCell>{row.value}</TableCell>
+                  <TableCell>{row.id}</TableCell>
+                </TableRow>
+              );
+            } else {
+              return;
+            }
           })}
         </TableBody>
       </Table>
