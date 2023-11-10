@@ -19,6 +19,7 @@ export function Commodities(mergedData) {
 
   const handleSearch = (event) => {
     setFilterword(event.target.value.toLowerCase());
+    console.log(event.target.value);
   };
 
   return (
@@ -46,7 +47,9 @@ export function Commodities(mergedData) {
         </TableHead>
         <TableBody>
           {mergedData.mergedData.map((row) => {
-            if (row.displayName.toLowerCase().includes(filterword)) {
+            if (
+              row.displayName.substring([14]).toLowerCase().includes(filterword)
+            ) {
               return (
                 <TableRow key={row.id}>
                   <TableCell>{row.displayName.substring([14])}</TableCell>
