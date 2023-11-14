@@ -70,6 +70,7 @@ export function Dispense(props) {
                     warning={props.warning}
                     error={props.error}
                     validationText={props.warningText}
+                    disabled={props.disabled}
                   />
                 </div>
                 <div style={{ width: "2vh" }}></div>

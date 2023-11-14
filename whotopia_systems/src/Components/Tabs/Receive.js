@@ -68,6 +68,7 @@ export function Receive(props) {
                     warning={props.warning}
                     error={props.error}
                     validationText={props.warningText}
+                    disabled={true}
                   />
                 </div>
                 <div style={{ width: "2vh" }}></div>

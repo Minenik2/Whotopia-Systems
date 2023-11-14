@@ -31,11 +31,12 @@ const dataMutationQueryTransaction = {
 };
 
 export function Insert(props) {
-  const [amount, setAmount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [amount, setAmount] = useState(0); // current commodity stock
+  const [total, setTotal] = useState(0); // amout the user wants to add/remove
   const [alertHidden, setAlertHidden] = useState(true);
   const [errorInput, setErrorInput] = useState(false);
   const [warning, setWarning] = useState(false);
+  const [disabled, setDisabled] = useState(true); //disabled input amount until user selects a commodity
   const [warningText, setWarningText] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
@@ -87,12 +88,33 @@ export function Insert(props) {
     });
     props.refetch();
     setAlertHidden(false);
-    //alert("Commodities changed");
+  }
+
+  function checkWarnings(number) {
+    if (activeTab == "Dispense" && amount < number) {
+      setErrorInput(true);
+      setWarningText("Select a lower amount than current stock");
+    } else if (event.target.value <= 0 && amount > number) {
+      setErrorInput(true);
+      setWarningText("please insert positive number");
+    } else if (activeTab == "Dispense" && number == amount) {
+      setErrorInput(false);
+      setWarning(true);
+      setWarningText("This will remove full stock");
+    } else {
+      setErrorInput(false);
+      setWarning(false);
+      setWarningText("");
+    }
   }
 
   const handleSelect = () => {
+    console.log(disabled);
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
+        setDisabled(false);
+        console.log(disabled);
+        checkWarnings(total);
         setAmount(dataHistory[option].amount);
         setDisplayNameCommodity(dataHistory[option].label);
         console.log("display name commodity is: " + displayNameCommodity);
@@ -104,22 +126,10 @@ export function Insert(props) {
 
   const handleAmount = (event) => {
     if (event.target.id == "value") {
-      setTotal(parseInt(event.target.value));
-      if (activeTab == "Dispense" && amount < event.target.value) {
-        setErrorInput(true);
-        setWarningText("Select a lower amount than current stock");
-      } else if (event.target.value <= 0 && amount > event.target.value) {
-        setErrorInput(true);
-        setWarningText("please insert positive number");
-      } else if (activeTab == "Dispense" && event.target.value == amount) {
-        setErrorInput(false);
-        setWarning(true);
-        setWarningText("This will remove full stock");
-      } else {
-        setErrorInput(false);
-        setWarning(false);
-        setWarningText("");
-      }
+      const userNumber =
+        event.target.value == "" ? 0 : parseInt(event.target.value);
+      setTotal(userNumber);
+      checkWarnings(userNumber);
     }
   };
 
@@ -169,6 +179,7 @@ export function Insert(props) {
             error={errorInput}
             warning={warning}
             warningText={warningText}
+            disabled={disabled}
           />
         )}
         {activeTab === "Receive" && (
@@ -187,6 +198,7 @@ export function Insert(props) {
             error={errorInput}
             warning={warning}
             warningText={warningText}
+            disabled={disabled}
           />
         )}
       </div>
