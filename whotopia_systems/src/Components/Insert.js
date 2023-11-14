@@ -46,6 +46,8 @@ export function Insert(props) {
 
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
 
+  // lager objekt for vær commodity
+
   // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
   let dataHistory = [];
@@ -180,6 +182,7 @@ export function Insert(props) {
             warning={warning}
             warningText={warningText}
             disabled={disabled}
+            activeTab={activeTab}
           />
         )}
         {activeTab === "Receive" && (

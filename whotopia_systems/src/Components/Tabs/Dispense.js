@@ -1,5 +1,5 @@
 import React from "react";
-import { useDataMutation } from "@dhis2/app-runtime";
+import CommodityEntry from "./CommodityEntry";
 import { useState } from "react";
 import {
   ReactFinalForm,
@@ -33,6 +33,28 @@ export function Dispense(props) {
   let amount = props.amount;
   let total = props.total;
   let dateAndTime = props.dateAndTime;
+
+  const [commodities, setCommodities] = useState([]);
+  const [commodityCount, setCommodityCount] = useState(0);
+
+  const handleAddCommodity = () => {
+    setCommodityCount((prevCount) => prevCount + 1);
+    const newCommodity = {
+      dataElement: props.mergedData.dataElement,
+      value: props.mergedData.value,
+      inStock: 20,
+      afterTransaction: 40,
+    };
+
+    setCommodities([...commodities, newCommodity]);
+  };
+
+  const handleRemoveCommodity = (prefix) => {
+    setCommodities((prevCommodities) =>
+      prevCommodities.filter((commodity) => !commodity.startsWith(prefix))
+    );
+  };
+
   return (
     <div>
       <h1>Register Dispensed Commodities</h1>
@@ -46,61 +68,25 @@ export function Dispense(props) {
       <ReactFinalForm.Form onSubmit={props.onSubmit}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="stuff">
-              <div style={divStyle2}>
-                <div>
-                  <ReactFinalForm.Field
-                    component={SingleSelectFieldFF}
-                    name="dataElement"
-                    label="Select commodity"
-                    placeholder="Choose an option"
-                    someAmount="o15CyZiTvxa"
-                    options={props.dataHistory}
-                    onChange={props.handleSelect()}
-                    inputWidth="80vh"
-                  />
-                </div>
-                <div>
-                  <ReactFinalForm.Field
-                    name="value"
-                    label="Select amount"
-                    component={InputFieldFF}
-                    validate={composeValidators(hasValue, number)}
-                    inputWidth="14vh"
-                    warning={props.warning}
-                    error={props.error}
-                    validationText={props.warningText}
-                    disabled={props.disabled}
-                  />
-                </div>
-                <div style={{ width: "2vh" }}></div>
-                <ReactFinalForm.Field
-                  name="inStock"
-                  label="Current stock"
-                  component={InputFieldFF}
-                  validate={composeValidators(number)}
-                  inputWidth="14vh"
-                  placeholder={amount}
-                  readOnly
-                />
-                <ReactFinalForm.Field
-                  name="afterTrasaction"
-                  label="After transaction"
-                  component={InputFieldFF}
-                  validate={composeValidators(number)}
-                  inputWidth="14vh"
-                  placeholder={parseInt(amount) - parseInt(total)}
-                  readOnly
-                />
-                <div style={{ width: "2vh" }}></div>
-                <Button>
-                  <IconAdd16 />
-                  Add Commodity
-                </Button>
-              </div>
-            </div>
+            <div className="stuff"></div>
             <br />
             <br />
+            {commodities.map((commodity, index) => (
+              <CommodityEntry
+                key={index}
+                prefix={`commodity_${index}`}
+                dataHistory={props.dataHistory}
+                handleSelect={props.handleSelect}
+                amount={amount}
+                total={total}
+                onRemove={handleRemoveCommodity}
+                activeTab={props.activeTab}
+              />
+            ))}
+            <Button type="button" onClick={handleAddCommodity}>
+              <IconAdd16 />
+              Add Commodity
+            </Button>
             <div style={divStyle}>
               <ReactFinalForm.Field
                 name="dispenser"
