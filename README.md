@@ -60,7 +60,7 @@ All information in the form will be retained after submitting changes to a commo
 
 #### Known issue 3: "Commodities changed" notification only shows up once
 
-If a user has submitted changes to a commodity, a notification will appear to notify and confirm to user that changes have been made successfully. If the user submits other commodities later, this notification will no longer show up after pressing the Submit button. The notification will only re-appear upon refreshing the website.
+If a user has submitted changes to a commodity, a notification will appear to notify and confirm to user that changes have been made successfully. If the user submits other commodities later, this notification will no longer show up after pressing the Submit button. The notification will only re-appear upon re-loading the website.
 
 #### Known issue 4: Box containing additional details of a transaction does not have a fixed position
 
