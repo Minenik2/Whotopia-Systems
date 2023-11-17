@@ -44,7 +44,6 @@ export function Commodities(mergedData) {
           <DataTableRow>
             <DataTableColumnHeader large>Commodity name</DataTableColumnHeader>
             <DataTableColumnHeader large>Amount in stock</DataTableColumnHeader>
-            <DataTableColumnHeader large>Id</DataTableColumnHeader>
           </DataTableRow>
         </TableHead>
         <TableBody>
@@ -58,7 +57,6 @@ export function Commodities(mergedData) {
                     {row.displayName.substring([14])}
                   </DataTableCell>
                   <DataTableCell>{row.value}</DataTableCell>
-                  <DataTableCell>{row.id}</DataTableCell>
                 </DataTableRow>
               );
             } else {

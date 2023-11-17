@@ -7,28 +7,10 @@ import {
   hasValue,
   number,
   composeValidators,
-  IconAdd16,
   Divider,
   Card,
   Help,
 } from "@dhis2/ui";
-
-const divStyle = {
-  display: "flex",
-  "flex-wrap": "no-wrap",
-  gap: "2vw",
-  "align-items": "flex-end",
-};
-const divStyle2 = {
-  display: "flex",
-  "flex-wrap": "no-wrap",
-
-  "align-items": "flex-end",
-};
-const textStyle = {
-  "font-size": "14px",
-  "line-height": "19px",
-};
 
 export function Receive(props) {
   let amount = props.amount;
@@ -79,7 +61,7 @@ export function Receive(props) {
                         warning={props.warning}
                         error={props.error}
                         validationText={props.warningText}
-                        disabled={true}
+                        disabled={props.disabled}
                       />
                     </div>
                     <div style={{ width: "2vh" }}></div>

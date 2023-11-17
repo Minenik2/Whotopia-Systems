@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, Button } from "@dhis2/ui";
 import classes from "../App.module.css";
-import { DatasetsTable } from "./DatasetsTable";
 import { TransactionsTable } from "./TransactionsTable";
 import { TransactionInfo } from "./TransactionInfo";
 
@@ -30,9 +29,7 @@ export function Datasets(props) {
       </p>
       <Button onClick={handleClick}>Switch to table mode</Button>
       <div className={classes.container}>
-        {tableMode && (
-          <TransactionsTable mergedData={props.mergedData.dataValues} />
-        )}
+        {tableMode && <TransactionsTable data={props.mergedData.dataValues} />}
         {showList && (
           <div className={classes.left} style={{ width: 50 + "vh" }}>
             <Menu>
@@ -43,7 +40,7 @@ export function Datasets(props) {
                     ? " recieved " + listItem.value
                     : " dispensed " + listItem.value) +
                   ", " +
-                  listItem.period;
+                  listItem.period.replace("T", " ");
                 return (
                   <MenuItem
                     key={listItem.commodityId}
@@ -59,7 +56,7 @@ export function Datasets(props) {
           </div>
         )}
         <div className={classes.right}>
-          {selectedItem && <DatasetsTable selectedItem={selectedItem} />}
+          {selectedItem && <TransactionsTable data={selectedItem} />}
           {noTable && !tableMode && <TransactionInfo />}
         </div>
       </div>

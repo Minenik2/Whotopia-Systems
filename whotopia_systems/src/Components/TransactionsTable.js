@@ -10,6 +10,13 @@ import {
 } from "@dhis2/ui";
 
 export function TransactionsTable(props) {
+  let dataArray = [];
+  dataArray.push(props.data);
+
+  let data = props.data;
+  if (!Array.isArray(data)) {
+    data = dataArray;
+  }
   return (
     <DataTable>
       <TableHead>
@@ -23,12 +30,12 @@ export function TransactionsTable(props) {
         </DataTableRow>
       </TableHead>
       <TableBody>
-        {props.mergedData.toReversed().map((row) => (
+        {data.toReversed().map((row) => (
           <DataTableRow key={row.id}>
             <DataTableCell>{row.label}</DataTableCell>
             <DataTableCell>{row.value}</DataTableCell>
             <DataTableCell>{row.afterTransaction}</DataTableCell>
-            <DataTableCell>{row.period}</DataTableCell>
+            <DataTableCell>{row.period.replace("T", " ")}</DataTableCell>
             <DataTableCell>{row.dispensedBy}</DataTableCell>
             <DataTableCell>{row.DispensedTo}</DataTableCell>
           </DataTableRow>

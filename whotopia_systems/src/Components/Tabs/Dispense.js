@@ -7,21 +7,10 @@ import {
   hasValue,
   number,
   composeValidators,
-  IconAdd16,
   Divider,
   Card,
   Help,
 } from "@dhis2/ui";
-
-const divStyle = {
-  margin: "20px 20px 20px 20px",
-};
-const divStyle2 = {
-  display: "flex",
-  "flex-wrap": "no-wrap",
-
-  "align-items": "flex-end",
-};
 
 export function Dispense(props) {
   let amount = props.amount;
