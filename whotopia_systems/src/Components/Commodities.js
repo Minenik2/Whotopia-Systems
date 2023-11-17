@@ -11,8 +11,6 @@ import { Input } from "@dhis2-ui/input";
 
 export function Commodities(mergedData) {
   const [filterword, setFilterword] = useState("");
-  // console log the arraylist of commodities if necessary
-  //console.log(mergedData.mergedData);
 
   window.addEventListener("keyup", (event) => handleSearch(event));
 
