@@ -22,7 +22,7 @@ Allowing the user to register transactions within the store including both dispe
 
 - Contains _additional requirement 1 - store management (MVP)_: update stock balance, update commodity dataset and record the transaction
   - We consider this to be a basic requirement for a stock management application.
-- Contains _additional requirement 4 - improved management of commodity recipients (MVP)_: medical personnel is stored in the database, integrated into registering transactions in order to autocomplete recipients for more efficiency.
+- Contains _additional requirement 4 - improved management of commodity recipients (MVP)_: medical personnel is stored in the database, integrated into registering transactions in order to autocomplete recipients for more efficiency. Additionally, this will reduce the likelihood of creating input mistakes.
 
 Displays the current stock and future stock of the selected commodity for a better user experience and comprehensivity.
 User can edit date/time of transaction as internet access may not be stable at all times or to allow for other issues with more flexibility.
@@ -47,13 +47,24 @@ Data is collected and displayed in a list from the DataStore API key "transactio
 #### Missing functionality: Pagination
 We also wanted to add Pagination to the tables showcasing commodities and transactions - especially in the Transaction History, since it can quickly become quite long. However, we were unsure of how to do this based on the <Pagination> documentation, and also due to a lack of time and prioritizing other functionality, we were not able to add this functionality. 
 
-### Challenges: Adding Multiple Commodities (Multiple-Commodities-Deprecated branch)
+### Challenges & Known Issues: Adding Multiple Commodities (Multiple-Commodities-Deprecated branch)
 
 Using the 'ReactFinalForm' system from the DHIS2 documentation, we attempted to implement multiple commodities. There were multiple challenges we faced when implementing this. Firstly, we had to make sure to update our API database system to be able to store multiple commodities in a single push. Secondly, the way we showcased transaction history was designed for a single commodity entry. We created an array list of commodities where you can store and add commodities. Using the 'Add commodity' button, the user will be able to add a new commodity to the list. Our thought process was that when the user selects a commodity, it would automatically update the chosen stock value, input and 'amount after transaction' as values into the specified commodity in the array. What happened in reality was that the onChange parameter from the DHIS2 library for SingleSelectFF did not work according to our intentions. If you put the method into it, it would not run. 
 
 Therefore, you would have to invoke the method in the onChange={method()} for it to work. This was a workaround solution. Another workaround solution that was implemented as a result from the onChange parameter not working according to our wishes, was to add an EventListener with a method that reads the selected Select.InnerHTML target to find out what label the user has selected. An issue is that onChange is called on every 'SingleSelectFieldff' component in the file, causing it to run equal to the amount of times the user has added new commodities with the 'Add commodity' button. The onChange method runs multiple times, meaning that the current stock will change the stock of every single commodity to the same commodity's stock. We discussed solving the problem using keys or indexes and having that each time the onChange method runs, it would also run with the specific index that it is supposed to change that stock amount on. 
 
-In the end, the major problem was still onChange being called for every single SingleSelectFF component that is on the file. Therefore, it only called the method with the unique parameters, via the label that the user selected. We retrieved all this information using event.target.innerhtml instead, seeing that the onChange parametres for the string and event did not work. When we tried to implement the method how it is supposed to be, the method would not run. However, if it did in theory run how it was supposed to run, then we believe many of these challenges would be solved. Ultimately, we decided not to implement this functionality due to time constraints and to prioritize other functions. The last working code is located on the Multiple-Commoditites-deprecated branch, and is the last working version before changing the resources to focus on other functions.
+In the end, the major problem was still onChange being called for every single SingleSelectFF component that is on the file. Therefore, it only called the method with the unique parameters, via the label that the user has selected. We retrieved all this information using event.target.innerhtml instead, seeing that the onChange parameters for the string and event did not work. When we tried to implement the method how it is supposed to be, the method would not run. However, if it did in theory run how it was supposed to run, we believe many of these challenges would be solved. Ultimately, we decided not to implement this functionality due to time constraints and to prioritize other functions. The last working code is located on the Multiple-Commoditites-deprecated branch and is the last working version before changing resources to focus on other functions.
+
+#### Known issue 1: Can submit changes to commodity multiple times in a row
+All information in the form will be retained after submitting changes to a commodity. This will make it possible for a user to spam the Submit button, which is not an intended function. The form should preferably reset all information upon pressing the Submit button, thus making it impossible for a user to spam this button.
+
+#### Known issue 2: "Commodities changed" notification only shows up once
+
+If a user has submitted changes to a commodity, a notification will appear to notify and confirm to user that changes have been made successfully. If the user submits other commodities later, this notification will no longer show up after pressing the Submit button. The notification will only re-appear upon refreshing the website.
+
+#### Known issue 3: Box containing additional details of a transaction does not have a fixed position
+
+A user can have a very long transaction history (see Transaction History). If the user scrolls far down and clicks on a transaction for more details, the box containing additional details will only be visible from the very top of the page, forcing the user to scroll to the top. A possible solution for this is to implement pagination for Transaction History to reduce scrolling, or to give the box containing additional details a fixed position.
 
 #### Missed idea: sorting system
 
