@@ -54,7 +54,9 @@ export function Dispense(props) {
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="stuff">
-              <div style={divStyle2}>
+              <div
+                style={{ display: "flex", alignItems: "flex-end", gap: "2vw" }}
+              >
                 <div>
                   <ReactFinalForm.Field
                     component={SingleSelectFieldFF}
@@ -80,7 +82,7 @@ export function Dispense(props) {
                     disabled={props.disabled}
                   />
                 </div>
-                <div style={{ width: "2vh" }}></div>
+
                 <ReactFinalForm.Field
                   name="inStock"
                   label="Current stock"
@@ -99,12 +101,11 @@ export function Dispense(props) {
                   placeholder={parseInt(amount) - parseInt(total)}
                   readOnly
                 />
-                <div style={{ width: "2vh" }}></div>
               </div>
             </div>
             <div className="stuff"></div>
             <br />
-            <br />
+
             {props.commodities.map((commodity, index) => (
               <CommodityEntry
                 key={index}
@@ -121,6 +122,8 @@ export function Dispense(props) {
               <IconAdd16 />
               Add Commodity
             </Button>
+            <br />
+            <br />
             <div style={divStyle}>
               <ReactFinalForm.Field
                 name="dispenser"
