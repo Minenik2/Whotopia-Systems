@@ -30,7 +30,7 @@ const textStyle = {
 };
 
 export function Dispense(props) {
-  let amount = props.amount;
+  let amount = props.amount; // stock amount / amount of stock left
   let total = props.total;
   let dateAndTime = props.dateAndTime;
 
@@ -107,11 +107,11 @@ export function Dispense(props) {
             <br />
             {props.commodities.map((commodity, index) => (
               <CommodityEntry
-                key={index}
+                keyid={index}
                 prefix={`commodity_${index}`}
                 dataHistory={props.dataHistory}
                 handleSelect={props.handleSelect}
-                amount={amount}
+                amount={commodity.inStock}
                 total={total}
                 onRemove={handleRemoveCommodity}
                 activeTab={props.activeTab}

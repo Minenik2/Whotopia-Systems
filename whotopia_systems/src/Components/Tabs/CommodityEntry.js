@@ -12,7 +12,8 @@ import {
 } from "@dhis2/ui";
 
 const CommodityEntry = (props) => {
-  const [amount, setAmount] = useState(0); // current commodity stock
+  let key = props.keyid;
+  let amount = props.amount; // current commodity stock
   const [total, setTotal] = useState(0); // amout the user wants to add/remove
   const [errorInput, setErrorInput] = useState(false);
   const [warning, setWarning] = useState(false);
@@ -22,6 +23,8 @@ const CommodityEntry = (props) => {
   var disabled = window.addEventListener("keyup", (event) =>
     handleAmount(event)
   );
+
+  console.log(key);
 
   const handleAmount = (event) => {
     console.log(event);
@@ -61,7 +64,7 @@ const CommodityEntry = (props) => {
           placeholder="Choose an option"
           someAmount="o15CyZiTvxa"
           options={props.dataHistory}
-          onChange={props.handleSelect()}
+          onChange={props.handleSelect(key)}
           inputWidth="80vh"
         />
       </div>
@@ -82,7 +85,7 @@ const CommodityEntry = (props) => {
         label="Current stock"
         component={InputFieldFF}
         inputWidth="14vh"
-        placeholder={`${props.prefix}`.substring(4)}
+        placeholder={amount}
         readOnly
       />
       <ReactFinalForm.Field

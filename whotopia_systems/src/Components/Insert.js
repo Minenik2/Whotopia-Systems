@@ -77,6 +77,7 @@ export function Insert(props) {
     });
   });
 
+  // when the user hits the submit button
   function onSubmit(formInput) {
     mutate({
       value:
@@ -110,6 +111,7 @@ export function Insert(props) {
     setAlertHidden(false);
   }
 
+  // if the user inputs too high or too low number, give warning
   function checkWarnings(number) {
     if (activeTab == "Dispense" && amount < number) {
       setErrorInput(true);
@@ -128,16 +130,20 @@ export function Insert(props) {
     }
   }
 
-  const handleSelect = () => {
-    console.log(event);
-    console.log(disabled);
+  const handleSelect = (key) => {
+    console.log("current key: " + key);
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
         setDisabled(false);
-        console.log(disabled);
+        //console.log(disabled);
         checkWarnings(total);
-        setAmount(dataHistory[option].amount);
-        setDisplayNameCommodity(dataHistory[option].label);
+        if (key != null) {
+          commodities[key].inStock = dataHistory[option].amount;
+          commodities[key].label = dataHistory[option].label;
+        } else {
+          setAmount(dataHistory[option].amount);
+          setDisplayNameCommodity(dataHistory[option].label);
+        }
         console.log("display name commodity is: " + displayNameCommodity);
       }
     }
