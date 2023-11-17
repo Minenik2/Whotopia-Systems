@@ -23,10 +23,10 @@ Allowing the user to register transactions within the store including both dispe
 Displays the current stock and future stock of the selected commodities for a better user experience and comprehensivity.
 User can edit date/time of transaction as internet access may not be stable at all times or to allow for other issues with more flexibility.
 #### How is this made? 
-Using the customized DHIS2 UI, we have implemented a navigation tab in order to switch between dispensing and receiving commodities, where the information shown is dependent on what tab is currently active. 
-Using this currently active tab, we also differentiate between whether the transaction should be a subtraction (dispensing) or an addition (receiving) to the stock. 
-We have used our own folder in the DataStore section of the DHIS2 API to add a key for *users*, containing medical personnel. This list of users is used for filling in recipients within transaction registering. Users cannot enter a recipient that is not already in this list. **Note:** We have not added functionality to add users to this list as that is not included in our interpretation of the requirement. 
-In this same DataStore API, we have a key storing all transactions when a transaction is registered and submitted. This API is also used for displaying the transactions in the Transaction History tab. 
+Using the customized DHIS2 UI, we have implemented a navigation tab in order to switch between dispensing and receiving commodities, where the information shown is dependent on what tab is currently active.\
+Using this currently active tab, we also differentiate between whether the transaction should be a subtraction (dispensing) or an addition (receiving) to the stock.\
+We have used our own folder in the DataStore section of the DHIS2 API to add a key for *users*, containing medical personnel. This list of users is used for filling in recipients within transaction registering. Users cannot enter a recipient that is not already in this list. **Note:** We have not added functionality to add users to this list as that is not included in our interpretation of additional requirement 4.\
+In this same DataStore API, we have a key storing all transactions when a transaction is registered and submitted. This API is also used for displaying the transactions in the Transaction History tab.\
 //TODO: Additional requirement 9
 ### Transaction History
 An overview of all the transactions taken place at the location, with the latest on top.
