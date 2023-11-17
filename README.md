@@ -69,6 +69,10 @@ If a user has submitted changes to a commodity, a notification will appear to no
 
 A user can have a very long transaction history (see Transaction History). If the user scrolls far down and clicks on a transaction for more details, the box containing additional details will only be visible from the very top of the page, forcing the user to scroll to the top. A possible solution for this is to implement pagination for Transaction History to reduce scrolling, or to give the box containing additional details a fixed position.
 
+### Known issue 5: The calendar input used is not from the DHIS2 library
+
+We wanted to use one of the Calendar inputs from DHIS2's own library, however, we were unable to work around an error regarding this element. We would get the following error: _"required attribute timeZone is missing or undefined"_ - despite having defined a timeZone correctly according to the Calendar documentation from https://ui.dhis2.nu/components/calendar. We ended up having to use a different calendar input element to solve this, so it looks a bit out of place.
+
 ### Missed idea: Sorting system
 
 We also wanted to add a functionality to commodity tab letting us sort alphabetically & by biggest/lowest amount. Sadly, due to time constraints we could not achieve this.
