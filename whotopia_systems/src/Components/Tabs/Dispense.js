@@ -75,7 +75,7 @@ export function Dispense(props) {
                       readOnly
                     />
                     <ReactFinalForm.Field
-                      name="afterTrasaction"
+                      name="afterTransaction"
                       label="After transaction"
                       component={InputFieldFF}
                       validate={composeValidators(number)}
