@@ -10,12 +10,18 @@ export function Datasets(props) {
   const [noTable, setNoTable] = useState(true);
   const [tableMode, setTableMode] = useState(false);
   const [showList, setShowList] = useState(true);
+  const [buttonText, setButtonText] = useState("Switch to Table View");
 
   const handleClick = () => {
     setTableMode(!tableMode);
     setShowList(!showList);
     setSelectedItem(null);
     setNoTable(!noTable);
+
+    setButtonText("Switch to List View");
+    if (tableMode) {
+      setButtonText("Switch to Table View");
+    }
   };
 
   return (
@@ -24,10 +30,10 @@ export function Datasets(props) {
       <p>
         Here is an overview of all dispensed and received commodities. <br />
         Click on a transaction to view more transaction details, or switch to{" "}
-        <strong>Table Mode</strong> to view the information in the form of a
+        <strong>Table View</strong> to display the information in the form of a
         table instead.
       </p>
-      <Button onClick={handleClick}>Switch to table mode</Button>
+      <Button onClick={handleClick}>{buttonText}</Button>
       <div className={classes.container}>
         {tableMode && <TransactionsTable data={props.mergedData.dataValues} />}
         {showList && (

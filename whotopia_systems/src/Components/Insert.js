@@ -30,6 +30,7 @@ const dataMutationQueryTransaction = {
 };
 
 export function Insert(props) {
+  const [activeTab, setActiveTab] = useState("Dispense");
   const [amount, setAmount] = useState(0); // Current commodity stock
   const [total, setTotal] = useState(0); // Amount in stock the user wants to add/remove
   const [alertHidden, setAlertHidden] = useState(true);
@@ -43,6 +44,7 @@ export function Insert(props) {
     dataMutationQueryTransaction
   );
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
+  let transactions = props.transactions;
 
   // Creates an array for all option elements in the form
   let mergedData = props.mergedData;
@@ -66,8 +68,7 @@ export function Insert(props) {
       orgUnit: "kbGqmM6ZWWV",
     });
     props.refetch();
-    console.log(props.transactions);
-    props.transactions.dataValues.push({
+    transactions.dataValues.push({
       value: activeTab == "Dispense" ? formInput.value * -1 : formInput.value,
       label: displayNameCommodity,
       commodityId: formInput.dataElement,
@@ -80,15 +81,15 @@ export function Insert(props) {
           ? parseInt(amount) - parseInt(total)
           : parseInt(amount) + parseInt(total),
     });
-    console.log(props.transactions);
     mutateTransaction({
-      array: props.transactions.dataValues,
+      array: transactions.dataValues,
     });
     props.refetch();
     setAlertHidden(false);
   }
 
-  function checkWarnings(number) { // Displays different warnings if input is invalid
+  function checkWarnings(number) {
+    // Displays different warnings if input is invalid
     if (activeTab == "Dispense" && amount < number) {
       setErrorInput(true);
       setWarningText("Please select a lower amount than current stock");
@@ -132,12 +133,6 @@ export function Insert(props) {
     setDateAndTime(event.target.value);
   };
 
-  const [activeTab, setActiveTab] = useState("Dispense");
-
-  let refetch = props.refetch;
-  let transactions = props.transactions;
-  console.log(props.users);
-
   function activeTabHandler(tab) {
     setActiveTab(tab);
     setAmount(0);
@@ -146,7 +141,16 @@ export function Insert(props) {
 
   return (
     <>
-      <div style={{ margin: "auto", position: "absolute", "z-index": "1", left: "45%", right: "50%", top: "90%"}}>
+      <div
+        style={{
+          margin: "auto",
+          position: "absolute",
+          "z-index": "1",
+          left: "45%",
+          right: "50%",
+          top: "90%",
+        }}
+      >
         <AlertBar // Displays a notification after user has submitted changes to the stock
           hidden={alertHidden}
           children="Commodities changed"
@@ -161,7 +165,7 @@ export function Insert(props) {
         {activeTab === "Dispense" && (
           <Dispense
             mergedData={mergedData}
-            refetch={refetch}
+            refetch={props.refetch}
             transactions={transactions}
             users={props.users}
             handleDateAndTime={handleDateAndTime}
@@ -180,7 +184,7 @@ export function Insert(props) {
         {activeTab === "Receive" && (
           <Receive
             mergedData={mergedData}
-            refetch={refetch}
+            refetch={props.refetch}
             transactions={transactions}
             users={props.users}
             handleDateAndTime={handleDateAndTime}
