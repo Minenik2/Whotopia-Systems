@@ -1,8 +1,3 @@
-Readme should include:
-Your app's functionality
-How this is implemented (just a brief explanation)
-Any missing functionality/implementations, and things that do not work optimally.
-
 # Whotopia Systems
 
 This project is for the class IN5320, where we have used the DHIS2 platform and libraries in order to create an application for stock management within Health Services.
@@ -28,9 +23,8 @@ Allowing the user to register transactions within the store including both dispe
 - Contains _additional requirement 1 - store management (MVP)_: update stock balance, update commodity dataset and record the transaction
   - We consider this to be a basic requirement for a stock management application.
 - Contains _additonal requirement 4 - improved management of commodity recipients (MVP)_: medical personnel is stored in the database, integrated into registering transactions in order to autocomplete recipients for more efficiency.
-- Contains _additional requirement 9 - manage bulk operations (extra)_: allowing users to register transactions with several commodities at once for more efficiency.
 
-Displays the current stock and future stock of the selected commodities for a better user experience and comprehensivity.
+Displays the current stock and future stock of the selected commodity for a better user experience and comprehensivity.
 User can edit date/time of transaction as internet access may not be stable at all times or to allow for other issues with more flexibility.
 
 #### How is this made?
@@ -39,7 +33,6 @@ Using the customized DHIS2 UI, we have implemented a navigation tab in order to 
 Using this currently active tab, we also differentiate between whether the transaction should be a subtraction (dispensing) or an addition (receiving) to the stock.\
 We have used our own folder in the DataStore section of the DHIS2 API to add a key for _users_, containing medical personnel. This list of users is used for filling in recipients within transaction registering. Users cannot enter a recipient that is not already in this list. **Note:** We have not added functionality to add users to this list as that is not included in our interpretation of additional requirement 4.\
 In this same DataStore API, we have a key storing all transactions when a transaction is registered and submitted. This API is also used for displaying the transactions in the Transaction History tab.\
-//TODO: Additional requirement 9
 
 ### Transaction History
 
@@ -50,6 +43,9 @@ An overview of all the transactions taken place at the location, with the latest
 #### How is this made?
 
 Data is collected and displayed in a list from the DataStore API key "transactions". When one of these elements is clicked, a table is created displaying more details of the transaction. The details of the element is collected depending on the clicked element using a useState "selectedItem".
+
+#### Missing functionality: Pagination
+We also wanted to add Pagination to the tables showcasing commodities and transactions - especially in the Transaction History, since it can quickly become quite long. However, we were unsure of how to do this based on the <Pagination> documentation, and also due to a lack of time and prioritizing other functionality, we were not able to add this functionality. 
 
 ### Challenges: Adding Multiple Commodities (Multiple-Commodities-Depricated branch)
 
