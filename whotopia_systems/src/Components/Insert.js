@@ -31,12 +31,12 @@ const dataMutationQueryTransaction = {
 };
 
 export function Insert(props) {
-  const [amount, setAmount] = useState(0); // current commodity stock
-  const [total, setTotal] = useState(0); // amout the user wants to add/remove
+  const [amount, setAmount] = useState(0); // Current commodity stock
+  const [total, setTotal] = useState(0); // Amount in stock the user wants to add/remove
   const [alertHidden, setAlertHidden] = useState(true);
   const [errorInput, setErrorInput] = useState(false);
   const [warning, setWarning] = useState(false);
-  const [disabled, setDisabled] = useState(true); //disabled input amount until user selects a commodity
+  const [disabled, setDisabled] = useState(true); // Disables input until user selects a commodity
   const [warningText, setWarningText] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
@@ -46,7 +46,7 @@ export function Insert(props) {
 
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
 
-  // lager en array for alle option elementer i form
+  // Creates an array for all option elements in the form
   let mergedData = props.mergedData;
   let dataHistory = [];
   mergedData.map((row) => {
@@ -90,17 +90,17 @@ export function Insert(props) {
     setAlertHidden(false);
   }
 
-  function checkWarnings(number) {
+  function checkWarnings(number) { // Displays different warnings if input is invalid
     if (activeTab == "Dispense" && amount < number) {
       setErrorInput(true);
-      setWarningText("Select a lower amount than current stock");
+      setWarningText("Please select a lower amount than current stock");
     } else if (event.target.value <= 0 && amount > number) {
       setErrorInput(true);
-      setWarningText("please insert positive number");
+      setWarningText("Please enter a valid amount");
     } else if (activeTab == "Dispense" && number == amount) {
       setErrorInput(false);
       setWarning(true);
-      setWarningText("This will remove full stock");
+      setWarningText("This will empty the entire stock of this commodity");
     } else {
       setErrorInput(false);
       setWarning(false);
@@ -109,15 +109,12 @@ export function Insert(props) {
   }
 
   const handleSelect = () => {
-    console.log(disabled);
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
         setDisabled(false);
-        console.log(disabled);
         checkWarnings(total);
         setAmount(dataHistory[option].amount);
         setDisplayNameCommodity(dataHistory[option].label);
-        console.log("display name commodity is: " + displayNameCommodity);
       }
     }
   };
@@ -151,8 +148,8 @@ export function Insert(props) {
 
   return (
     <>
-      <div style={{ margin: "auto", position: "absolute", "z-index": "1" }}>
-        <AlertBar
+      <div style={{ margin: "auto", position: "absolute", "z-index": "1", left: "45%", right: "50%", top: "90%"}}>
+        <AlertBar // Displays a notification after user has submitted changes to the stock
           hidden={alertHidden}
           children="Commodities changed"
           display=""
