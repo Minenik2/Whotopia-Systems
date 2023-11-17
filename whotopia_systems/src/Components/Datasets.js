@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Menu, MenuItem } from "@dhis2/ui";
 import classes from "../App.module.css";
 import { DatasetsTable } from "./DatasetsTable";
+import { TransactionInfo } from "./TransactionInfo";
 
 export function Datasets(props) {
   console.log(props.mergedData);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [noTable, setNoTable] = useState(true);
 
   return (
     <>
@@ -31,6 +33,7 @@ export function Datasets(props) {
                   label={label}
                   onClick={() => {
                     setSelectedItem(listItem);
+                    setNoTable(false);
                   }}
                 ></MenuItem>
               );
@@ -39,6 +42,7 @@ export function Datasets(props) {
         </div>
         <div className={classes.right}>
           {selectedItem && <DatasetsTable selectedItem={selectedItem} />}
+          {noTable && <TransactionInfo />}
         </div>
       </div>
     </>
