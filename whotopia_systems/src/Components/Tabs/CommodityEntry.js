@@ -55,32 +55,8 @@ const CommodityEntry = (props) => {
   }
 
   return (
-    <>
-      <div style={{ display: "flex", alignItems: "flex-end", gap: "2vw" }}>
-        <div>
-          <ReactFinalForm.Field
-            component={SingleSelectFieldFF}
-            name={`${props.prefix}.dataElement`}
-            label="Select commodity"
-            placeholder="Choose an option"
-            someAmount="o15CyZiTvxa"
-            options={props.dataHistory}
-            onChange={props.handleSelect()}
-            inputWidth="80vh"
-          />
-        </div>
-        <div>
-          <ReactFinalForm.Field
-            name={`${props.prefix}.value`}
-            label="Select amount"
-            component={InputFieldFF}
-            inputWidth="14vh"
-            warning={warning}
-            error={errorInput}
-            validationText={warningText}
-            disabled={disabled}
-          />
-        </div>
+    <div style={{ display: "flex", alignItems: "flex-end", gap: "2vw" }}>
+      <div>
         <ReactFinalForm.Field
           component={SingleSelectFieldFF}
           name={`${props.prefix}.dataElement`}
@@ -98,21 +74,11 @@ const CommodityEntry = (props) => {
           label="Select amount"
           component={InputFieldFF}
           inputWidth="14vh"
-          placeholder={`${props.prefix}.value`}
-          readOnly
+          warning={warning}
+          error={errorInput}
+          validationText={warningText}
+          disabled={disabled}
         />
-        <ReactFinalForm.Field
-          name="afterTransaction"
-          label="After transaction"
-          component={InputFieldFF}
-          inputWidth="14vh"
-          placeholder={parseInt(amount) - parseInt(total)}
-          readOnly
-        />
-        <div style={{ width: "2vh" }}></div>
-        <Button type="button" onClick={() => props.onRemove(props.prefix)}>
-          Remove
-        </Button>
       </div>
       <ReactFinalForm.Field
         name="inStock"
