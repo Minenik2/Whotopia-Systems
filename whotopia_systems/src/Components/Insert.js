@@ -46,7 +46,25 @@ export function Insert(props) {
 
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
 
+  // Koden for å manage multiple commodities
+  const [commodities, setCommodities] = useState([]);
+  const [commodityCount, setCommodityCount] = useState(0);
   // lager objekt for vær commodity
+  const handleAddCommodity = () => {
+    setCommodityCount((prevCount) => prevCount + 1);
+    const newCommodity = {
+      value: 0,
+      label: "",
+      commodityId: "formInput.dataElement",
+      period: "dateAndTime",
+      dispensedBy: "",
+      DispensedTo: "",
+      inStock: 0,
+      afterTransaction: 0,
+    };
+
+    setCommodities([...commodities, newCommodity]);
+  };
 
   // lager en array for alle option elementer i form
   let mergedData = props.mergedData;
@@ -111,6 +129,7 @@ export function Insert(props) {
   }
 
   const handleSelect = () => {
+    console.log(event);
     console.log(disabled);
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
@@ -183,6 +202,8 @@ export function Insert(props) {
             warningText={warningText}
             disabled={disabled}
             activeTab={activeTab}
+            handleAddCommodity={handleAddCommodity}
+            commodities={commodities}
           />
         )}
         {activeTab === "Receive" && (
