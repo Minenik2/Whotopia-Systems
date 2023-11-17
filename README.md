@@ -9,7 +9,7 @@ This project is for the class IN5320, where we have used the DHIS2 platform and 
 ## Functionality
 Our application functionality is divided into 3 separate tabs found in the navigation bar to the left of the webpage: 
 ### Commodity Inventory
-An overview of all the current stock within the store (all commodities + their current amount at the location)
+An alphabetically ordered overview of all the current stock within the store (all commodities + their current amount at the location)
   - This overview is also searchable using the connected search bar.
 #### How is this made? 
 The data of the location's commodities and current stock is collected and displayed using the DHIS2 API. The searching functionality is connected to the displayName of the commodities, where the table only displays commodities containing a "filterword" (input in the searchbar) if something is entered. 
