@@ -49,7 +49,7 @@ Data is collected and displayed in a list from the DataStore API key "transactio
 
 ## Challenges, Known Issues and Missing Functionality
 
-#### Known issue 1: Adding Multiple Commodities (Multiple-Commodities-Deprecated branch)
+### Known issue 1: Adding Multiple Commodities (Multiple-Commodities-Deprecated branch)
 
 Using the 'ReactFinalForm' system from the DHIS2 documentation, we attempted to implement multiple commodities. There were multiple challenges we faced when implementing this. Firstly, we had to make sure to update our API database system to be able to store multiple commodities in a single push. Secondly, the way we showcased transaction history was designed for a single commodity entry. We created an array list of commodities where you can store and add commodities. Using the 'Add commodity' button, the user will be able to add a new commodity to the list. Our thought process was that when the user selects a commodity, it would automatically update the chosen stock value, input and 'amount after transaction' as values into the specified commodity in the array. What happened in reality was that the onChange parameter from the DHIS2 library for SingleSelectFF did not work according to our intentions. If you put the method into it, it would not run.
 
@@ -57,22 +57,22 @@ Therefore, you would have to invoke the method in the onChange={method()} for it
 
 In the end, the major problem was still onChange being called for every single SingleSelectFF component that is on the file. Therefore, it only called the method with the unique parameters, via the label that the user has selected. We retrieved all this information using event.target.innerhtml instead, seeing that the onChange parameters for the string and event did not work. When we tried to implement the method how it is supposed to be, the method would not run. However, if it did in theory run how it was supposed to run, we believe many of these challenges would be solved. Ultimately, we decided not to implement this functionality due to time constraints and to prioritize other functions. The last working code is located on the Multiple-Commoditites-deprecated branch and is the last working version before changing resources to focus on other functions.
 
-#### Known issue 2: Can submit changes to commodity multiple times in a row
+### Known issue 2: Can submit changes to commodity multiple times in a row
 
 All information in the form will be retained after submitting changes to a commodity. This will make it possible for a user to spam the Submit button, which is not an intended function. The form should preferably reset all information upon pressing the Submit button, thus making it impossible for a user to spam this button.
 
-#### Known issue 3: "Commodities changed" notification only shows up once
+### Known issue 3: "Commodities changed" notification only shows up once
 
 If a user has submitted changes to a commodity, a notification will appear to notify and confirm to user that changes have been made successfully. If the user submits other commodities later, this notification will no longer show up after pressing the Submit button. The notification will only re-appear upon re-loading the website.
 
-#### Known issue 4: Box containing additional details of a transaction does not have a fixed position
+### Known issue 4: Box containing additional details of a transaction does not have a fixed position
 
 A user can have a very long transaction history (see Transaction History). If the user scrolls far down and clicks on a transaction for more details, the box containing additional details will only be visible from the very top of the page, forcing the user to scroll to the top. A possible solution for this is to implement pagination for Transaction History to reduce scrolling, or to give the box containing additional details a fixed position.
 
-#### Missed idea: Sorting system
+### Missed idea: Sorting system
 
 We also wanted to add a functionality to commodity tab letting us sort alphabetically & by biggest/lowest amount. Sadly, due to time constraints we could not achieve this.
 
-#### Missed idea: Pagination
+### Missed idea: Pagination
 
 We also wanted to add Pagination to the tables showcasing commodities and transactions - especially in the Transaction History, since it can quickly become quite long. However, we were unsure of how to do this based on the <Pagination> documentation, and also due to a lack of time and prioritizing other functionality, we were not able to add this functionality.
