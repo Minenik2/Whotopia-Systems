@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Card, IconInfo16, LogoIcon, Help } from "@dhis2/ui";
 
 export function TransactionInfo() {
@@ -11,6 +11,9 @@ export function TransactionInfo() {
     width: "50em",
   };
 
+  const handleClick = () => {
+    setTableMode(true);
+  };
   return (
     <div>
       <Box height="30em" width="50em">
@@ -32,8 +35,7 @@ export function TransactionInfo() {
             >
               <IconInfo16 />
               <Help>
-                Select a transaction from the left in order to view more
-                transaction details here.
+                More information about a transaction will be displayed here.
               </Help>
             </div>
           </div>

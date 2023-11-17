@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import {
-  Table,
+  DataTable,
   TableBody,
-  TableCell,
-  TableCellHead,
+  DataTableCell,
+  DataTableColumnHeader,
   TableHead,
-  TableRow,
-  TableRowHead,
+  DataTableRow,
 } from "@dhis2/ui";
 import { Input } from "@dhis2-ui/input";
 
@@ -30,20 +29,23 @@ export function Commodities(mergedData) {
         the store.
       </p>
 
+      <label for="searchInput">Find a Commodity</label>
+
       <Input
         label="Find a Commodity"
         name="searchInput"
-        placeholder="Search..."
-        type="text"
+        id="searchInput"
+        placeholder="Search by commodity name..."
       />
+      <br />
 
-      <Table>
+      <DataTable>
         <TableHead>
-          <TableRowHead>
-            <TableCellHead>Name</TableCellHead>
-            <TableCellHead>Amount</TableCellHead>
-            <TableCellHead>Id</TableCellHead>
-          </TableRowHead>
+          <DataTableRow>
+            <DataTableColumnHeader large>Commodity name</DataTableColumnHeader>
+            <DataTableColumnHeader large>Amount in stock</DataTableColumnHeader>
+            <DataTableColumnHeader large>Id</DataTableColumnHeader>
+          </DataTableRow>
         </TableHead>
         <TableBody>
           {mergedData.mergedData.map((row) => {
@@ -51,18 +53,20 @@ export function Commodities(mergedData) {
               row.displayName.substring([14]).toLowerCase().includes(filterword)
             ) {
               return (
-                <TableRow key={row.id}>
-                  <TableCell>{row.displayName.substring([14])}</TableCell>
-                  <TableCell>{row.value}</TableCell>
-                  <TableCell>{row.id}</TableCell>
-                </TableRow>
+                <DataTableRow key={row.id}>
+                  <DataTableCell>
+                    {row.displayName.substring([14])}
+                  </DataTableCell>
+                  <DataTableCell>{row.value}</DataTableCell>
+                  <DataTableCell>{row.id}</DataTableCell>
+                </DataTableRow>
               );
             } else {
               return;
             }
           })}
         </TableBody>
-      </Table>
+      </DataTable>
     </>
   );
 }

@@ -9,7 +9,7 @@ import {
   DataTableRow,
 } from "@dhis2/ui";
 
-export function DatasetsTable(props) {
+export function TransactionsTable(props) {
   return (
     <DataTable>
       <TableHead>
@@ -23,14 +23,16 @@ export function DatasetsTable(props) {
         </DataTableRow>
       </TableHead>
       <TableBody>
-        <DataTableRow>
-          <DataTableCell>{props.selectedItem.label}</DataTableCell>
-          <DataTableCell>{props.selectedItem.value}</DataTableCell>
-          <DataTableCell>{props.selectedItem.afterTransaction}</DataTableCell>
-          <DataTableCell>{props.selectedItem.period}</DataTableCell>
-          <DataTableCell>{props.selectedItem.dispensedBy}</DataTableCell>
-          <DataTableCell>{props.selectedItem.DispensedTo}</DataTableCell>
-        </DataTableRow>
+        {props.mergedData.toReversed().map((row) => (
+          <DataTableRow key={row.id}>
+            <DataTableCell>{row.label}</DataTableCell>
+            <DataTableCell>{row.value}</DataTableCell>
+            <DataTableCell>{row.afterTransaction}</DataTableCell>
+            <DataTableCell>{row.period}</DataTableCell>
+            <DataTableCell>{row.dispensedBy}</DataTableCell>
+            <DataTableCell>{row.DispensedTo}</DataTableCell>
+          </DataTableRow>
+        ))}
       </TableBody>
       <TableFoot></TableFoot>
     </DataTable>
