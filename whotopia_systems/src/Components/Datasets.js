@@ -29,9 +29,9 @@ export function Datasets(props) {
       <h1>Transaction History</h1>
       <p>
         Here is an overview of all dispensed and received commodities. <br />
-        Click on a transaction to view more transaction details, or switch to{" "}
-        <strong>Table View</strong> to display the information in the form of a
-        table instead.
+        In the default <strong>List View</strong>, click on a transaction to
+        view more transaction details, or switch to <strong>Table View</strong>{" "}
+        to display the information in the form of a table instead.
       </p>
       <Button onClick={handleClick}>{buttonText}</Button>
       <div className={classes.container}>

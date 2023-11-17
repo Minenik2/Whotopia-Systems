@@ -21,9 +21,9 @@ export function Dispense(props) {
       <h1>Register Dispensed Commodities</h1>
       <Card>
         <p style={{ margin: "20px 20px" }}>
-          Dispense one or multiple commodities and submit to register the
-          transaction. All of these transactions will be found under the
-          overview in <strong>Transaction History</strong>.
+          Dispense a commodity and submit to register the transaction. All of
+          these transactions will be found under the overview in{" "}
+          <strong>Transaction History</strong>.
         </p>
 
         <div style={{ margin: "20px" }}>

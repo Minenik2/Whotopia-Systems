@@ -21,9 +21,9 @@ export function Receive(props) {
       <h1>Register Inventory Restock</h1>
       <Card>
         <p style={{ margin: "20px 20px" }}>
-          Here you can register new items when restocking the store. All of
-          these transactions will be found under the overview in{" "}
-          <strong>Transaction History</strong>.
+          Register received items when restocking the store and submit to save
+          the transaction. All of these transactions will be found under the
+          overview in <strong>Transaction History</strong>.
         </p>
 
         <div style={{ margin: "20px" }}>
