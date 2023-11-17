@@ -22,7 +22,7 @@ Allowing the user to register transactions within the store including both dispe
 
 - Contains _additional requirement 1 - store management (MVP)_: update stock balance, update commodity dataset and record the transaction
   - We consider this to be a basic requirement for a stock management application.
-- Contains _additional requirement 4 - improved management of commodity recipients (MVP)_: medical personnel is stored in the database, integrated into registering transactions in order to autocomplete recipients for more efficiency. Additionally, this will reduce the likelihood of creating input mistakes.
+- Contains _additional requirement 4 - improved management of commodity recipients (MVP)_: medical personnel is stored in the database, integrated into registering transactions in order to autocomplete recipients for more efficiency and a reduced likelihood of input mistakes.
 
 Displays the current stock and future stock of the selected commodity for a better user experience and comprehensivity.
 User can edit date/time of transaction as internet access may not be stable at all times or to allow for other issues with more flexibility.
