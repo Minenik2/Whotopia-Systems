@@ -55,8 +55,7 @@ Therefore, you would have to invoke the method in the onChange={method()} for it
 
 In the end, the major problem was still onChange being called for every single SingleSelectFF component that is on the file. Therefore, it only called the method with the unique parameters, via the label that the user has selected. We retrieved all this information using event.target.innerhtml instead, seeing that the onChange parameters for the string and event did not work. When we tried to implement the method how it is supposed to be, the method would not run. However, if it did in theory run how it was supposed to run, we believe many of these challenges would be solved. Ultimately, we decided not to implement this functionality due to time constraints and to prioritize other functions. The last working code is located on the Multiple-Commoditites-deprecated branch and is the last working version before changing resources to focus on other functions.
 
-#### Known issue 1: spam submit button
-
+#### Known issue 1: Can submit changes to commodity multiple times in a row
 All information in the form will be retained after submitting changes to a commodity. This will make it possible for a user to spam the Submit button, which is not an intended function. The form should preferably reset all information upon pressing the Submit button, thus making it impossible for a user to spam this button.
 
 #### Known issue 2: "Commodities changed" notification only shows up once
