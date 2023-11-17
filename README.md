@@ -53,4 +53,4 @@ Using the 'ReactFinalForm' system from dhis2 documentation, we tried to implemen
 
 #### Missed idea: sorting system
 
-We also wanted to add a functionality to commodity tab letting us sort alphabetically & by biggest/lowest amount, sadly due to time constrains we could not achieve this.
+We also wanted to add a functionality to commodity tab letting us sort alphabetically & by biggest/lowest amount. Sadly, due to time constraints we could not achieve this.
