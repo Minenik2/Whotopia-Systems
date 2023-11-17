@@ -229,6 +229,9 @@ export function Insert(props) {
             warning={warning}
             warningText={warningText}
             disabled={disabled}
+            activeTab={activeTab}
+            handleAddCommodity={handleAddCommodity}
+            commodities={commodities}
           />
         )}
       </div>

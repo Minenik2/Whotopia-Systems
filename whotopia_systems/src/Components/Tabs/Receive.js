@@ -1,4 +1,5 @@
 import React from "react";
+import CommodityEntry from "./CommodityEntry";
 import {
   ReactFinalForm,
   InputFieldFF,
@@ -31,6 +32,12 @@ export function Receive(props) {
   let amount = props.amount;
   let total = props.total;
   let dateAndTime = props.dateAndTime;
+
+  const handleRemoveCommodity = (prefix) => {
+    setCommodities((prevCommodities) =>
+      prevCommodities.filter((commodity) => !commodity.startsWith(prefix))
+    );
+  };
   return (
     <div>
       <h1>Register Inventory Restock</h1>
@@ -45,7 +52,9 @@ export function Receive(props) {
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="stuff">
-              <div style={divStyle2}>
+              <div
+                style={{ display: "flex", alignItems: "flex-end", gap: "2vw" }}
+              >
                 <div>
                   <ReactFinalForm.Field
                     component={SingleSelectFieldFF}
@@ -68,10 +77,10 @@ export function Receive(props) {
                     warning={props.warning}
                     error={props.error}
                     validationText={props.warningText}
-                    disabled={true}
+                    disabled={props.disabled}
                   />
                 </div>
-                <div style={{ width: "2vh" }}></div>
+
                 <ReactFinalForm.Field
                   name="inStock"
                   label="Current stock"
@@ -90,13 +99,27 @@ export function Receive(props) {
                   placeholder={parseInt(amount) + parseInt(total)}
                   readOnly
                 />
-                <div style={{ width: "2vh" }}></div>
-                <Button>
-                  <IconAdd16 />
-                  Add Commodity
-                </Button>
               </div>
             </div>
+            <div className="stuff"></div>
+            <br />
+
+            {props.commodities.map((commodity, index) => (
+              <CommodityEntry
+                key={index}
+                prefix={`commodity_${index}`}
+                dataHistory={props.dataHistory}
+                handleSelect={props.handleSelect}
+                amount={amount}
+                total={total}
+                onRemove={handleRemoveCommodity}
+                activeTab={props.activeTab}
+              />
+            ))}
+            <Button type="button" onClick={props.handleAddCommodity}>
+              <IconAdd16 />
+              Add Commodity
+            </Button>
             <br />
             <br />
             <div style={divStyle}>
