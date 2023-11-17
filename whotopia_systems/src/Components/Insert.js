@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Receive } from "./Tabs/Receive";
 import { Dispense } from "./Tabs/Dispense";
 import { TabNav } from "./TabNav";
@@ -43,7 +42,6 @@ export function Insert(props) {
   const [mutateTransaction, { loading2, error2 }] = useDataMutation(
     dataMutationQueryTransaction
   );
-
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
 
   // lager en array for alle option elementer i form

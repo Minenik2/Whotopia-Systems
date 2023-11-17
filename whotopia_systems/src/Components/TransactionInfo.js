@@ -11,9 +11,6 @@ export function TransactionInfo() {
     width: "50em",
   };
 
-  const handleClick = () => {
-    setTableMode(true);
-  };
   return (
     <div>
       <Box height="30em" width="50em">

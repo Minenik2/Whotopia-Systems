@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./App.module.css";
 import { Datasets } from "./Components/Datasets";
 import { Commodities } from "./Components/Commodities";
@@ -6,11 +6,9 @@ import { Insert } from "./Components/Insert";
 import { Navigation } from "./Navigation";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader } from "@dhis2/ui";
-import { RefreshAPI } from "./Components/RefreshAPI";
 
 function MyApp() {
   const [activePage, setActivePage] = useState("Commodities");
-  const [data2, setData2] = useState(null);
 
   function activePageHandler(page) {
     setActivePage(page);
