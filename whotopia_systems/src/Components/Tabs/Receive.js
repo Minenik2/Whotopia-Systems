@@ -10,6 +10,7 @@ import {
   Divider,
   Card,
   Help,
+  IconInfo24,
 } from "@dhis2/ui";
 
 export function Receive(props) {
@@ -20,11 +21,21 @@ export function Receive(props) {
     <div>
       <h1>Register Inventory Restock</h1>
       <Card>
-        <p style={{ margin: "20px 20px" }}>
-          Register received items when restocking the store and submit to save
-          the transaction. All of these transactions will be found under the
-          overview in <strong>Transaction History</strong>.
-        </p>
+        <div
+          style={{
+            display: "flex",
+            "align-items": "center",
+            margin: "20px",
+            gap: "10px",
+          }}
+        >
+          <IconInfo24 />
+          <p>
+            Register received items when restocking the store and submit to save
+            the transaction. All of these transactions will be found under the
+            overview in <strong>Transaction History</strong>.
+          </p>
+        </div>
 
         <div style={{ margin: "20px" }}>
           <Divider />

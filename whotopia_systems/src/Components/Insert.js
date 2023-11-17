@@ -6,6 +6,7 @@ import { useDataMutation } from "@dhis2/app-runtime";
 import { AlertBar } from "@dhis2-ui/alert";
 
 const dataMutationQuery = {
+  //updates the current stock amount based on the registered transaction
   resource: "dataValueSets",
   type: "create",
   dataSet: "ULowA8V3ucd",
@@ -22,6 +23,7 @@ const dataMutationQuery = {
 };
 
 const dataMutationQueryTransaction = {
+  //list of all transactions stored in the dataStore API
   resource: "dataStore/IN5320-<3>/Transactions",
   type: "update",
   data: ({ array }) => ({
@@ -30,14 +32,9 @@ const dataMutationQueryTransaction = {
 };
 
 export function Insert(props) {
-  const [activeTab, setActiveTab] = useState("Dispense");
+  const [activeTab, setActiveTab] = useState("Dispense"); //active Tab
   const [amount, setAmount] = useState(0); // Current commodity stock
   const [total, setTotal] = useState(0); // Amount in stock the user wants to add/remove
-  const [alertHidden, setAlertHidden] = useState(true);
-  const [errorInput, setErrorInput] = useState(false);
-  const [warning, setWarning] = useState(false);
-  const [disabled, setDisabled] = useState(true); // Disables input until user selects a commodity
-  const [warningText, setWarningText] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
   const [mutate, { loading, error }] = useDataMutation(dataMutationQuery);
   const [mutateTransaction, { loading2, error2 }] = useDataMutation(
@@ -45,6 +42,13 @@ export function Insert(props) {
   );
   const [displayNameCommodity, setDisplayNameCommodity] = useState("");
   let transactions = props.transactions;
+
+  //these are for handling user input errors and other feedback
+  const [alertHidden, setAlertHidden] = useState(true);
+  const [errorInput, setErrorInput] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [disabled, setDisabled] = useState(true); // Disables input until user selects a commodity
+  const [warningText, setWarningText] = useState("");
 
   // Creates an array for all option elements in the form
   let mergedData = props.mergedData;
@@ -77,7 +81,7 @@ export function Insert(props) {
       DispensedTo: formInput.dispensee,
       inStock: parseInt(amount),
       afterTransaction:
-        activeTab == "Dispense"
+        activeTab == "Dispense" //add or subtract according to whether user is dispensing or receiving
           ? parseInt(amount) - parseInt(total)
           : parseInt(amount) + parseInt(total),
     });
@@ -108,6 +112,7 @@ export function Insert(props) {
   }
 
   const handleSelect = () => {
+    //when a commodity is selected from the dropdown input
     for (let option in dataHistory) {
       if (event && dataHistory[option].label == event.target.innerHTML) {
         setDisabled(false);
@@ -137,8 +142,8 @@ export function Insert(props) {
     setActiveTab(tab);
     setAmount(0);
     setTotal(0);
+    setDisabled(true);
   }
-
   return (
     <>
       <div

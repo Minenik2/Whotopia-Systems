@@ -32,7 +32,8 @@ export function TransactionInfo() {
             >
               <IconInfo16 />
               <Help>
-                More information about a transaction will be displayed here.
+                &nbsp; More information about a transaction will be displayed
+                here when an option is clicked.
               </Help>
             </div>
           </div>

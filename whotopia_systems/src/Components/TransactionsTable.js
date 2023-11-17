@@ -4,7 +4,6 @@ import {
   TableBody,
   DataTableCell,
   DataTableColumnHeader,
-  TableFoot,
   TableHead,
   DataTableRow,
 } from "@dhis2/ui";
@@ -41,7 +40,6 @@ export function TransactionsTable(props) {
           </DataTableRow>
         ))}
       </TableBody>
-      <TableFoot></TableFoot>
     </DataTable>
   );
 }
